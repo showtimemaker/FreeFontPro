@@ -1,15 +1,15 @@
 //
-//  FreeFontProApp.swift
-//  FreeFontPro
+//  FreeFont_ProApp.swift
+//  FreeFont Pro
 //
-//  Created by chiu on 2025/11/28.
+//  Created by chiu on 2025/11/21.
 //
 
 import SwiftUI
 import SwiftData
 
 @main
-struct FreeFontProApp: App {
+struct FreeFont_Pro_App: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
