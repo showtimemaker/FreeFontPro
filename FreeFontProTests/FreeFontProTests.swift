@@ -1,0 +1,17 @@
+//
+//  FreeFontProTests.swift
+//  FreeFontProTests
+//
+//  Created by chiu on 2025/11/28.
+//
+
+import Testing
+@testable import FreeFontPro
+
+struct FreeFontProTests {
+
+    @Test func example() async throws {
+        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+    }
+
+}
