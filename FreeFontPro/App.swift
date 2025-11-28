@@ -25,7 +25,7 @@ struct FreeFont_Pro_App: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
         }
         .modelContainer(sharedModelContainer)
     }
