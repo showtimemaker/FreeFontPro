@@ -10,18 +10,19 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query private var fonts: [FontData]
+    @AppStorage("fontDataVersion") private var currentVersion: String = ""
     @State private var inputText: String = ""
     @State var showInputSheet: Bool = false
     var body: some View {
         NavigationStack {
-            List {
+            List(fonts) { font in
                 NavigationLink {
                     Button("install Font") {
                         print("install Font")
                     }
                 } label: {
-                    Text("Hello, world!")
+                    Text(font.id)
                 }
             }
             .toolbar {
@@ -76,6 +77,9 @@ struct ContentView: View {
             }
             .fullScreenCover(isPresented: $showInputSheet) {
                 TextInputView(inputText: $inputText)
+            }
+            .task {
+                await loadData()
             }
         }
     }
@@ -167,5 +171,37 @@ struct TextInputView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: FontData.self, inMemory: true)
+}
+
+    private func loadData() async {
+        do {
+            let remoteVersion = try await FontService.shared.fetchVersion()
+            if remoteVersion != currentVersion {
+                let fetchedFonts = try await FontService.shared.fetchFonts()
+                
+                // Clear existing data if needed, or update logic. 
+                // Here we update existing or insert new ones.
+                for fontResponse in fetchedFonts {
+                    let id = fontResponse.id
+                    let descriptor = FetchDescriptor<FontData>(predicate: #Predicate { $0.id == id })
+                    
+                    // Delete existing to ensure update
+                    if let existing = try modelContext.fetch(descriptor).first {
+                        modelContext.delete(existing)
+                    }
+                    
+                    let fontData = fontResponse.toFontData()
+                    modelContext.insert(fontData)
+                }
+                
+                currentVersion = remoteVersion
+                print("Updated fonts to version: \(remoteVersion)")
+            } else {
+                print("Fonts are up to date (version: \(currentVersion))")
+            }
+        } catch {
+            print("Failed to fetch fonts or version: \(error)")
+        }
+    }
 }
