@@ -5,7 +5,7 @@ struct FontDetailView: View {
     
     var body: some View {
         ScrollView {
-            Text(font.nameJSON)
+            Text(font.names[0])
             Text(font.author)
             Text(font.license)
             Text(font.licenseUrl)

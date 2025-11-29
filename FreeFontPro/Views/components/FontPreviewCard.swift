@@ -40,6 +40,7 @@ struct FontPreviewCard: View {
             .frame(height: svgHeight)
             Text(title)
                 .lineLimit(1)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.vertical, 8)
                 .foregroundColor(.gray)
                 .font(.system(size: 12))

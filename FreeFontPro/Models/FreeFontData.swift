@@ -20,12 +20,15 @@ final class FreeFontData {
     var website: String
     var copyright: String
     
-    // Store complex types as JSON strings to ensure SwiftData compatibility
-    var nameJSON: String
-    var descriptionJSON: String
-    var postscriptNamesJSON: String
+    // 多语言名称和描述，只存储 value
+    var names: [String]
+    var descriptions: [String]
     
-    init(id: String, categories: [String], languages: [String], author: String, weights: [String], license: String, licenseUrl: String, website: String, copyright: String, nameJSON: String, descriptionJSON: String, postscriptNamesJSON: String) {
+    // 使用 Model 存储 PostscriptName
+    @Relationship(deleteRule: .cascade)
+    var postscriptNames: [PostscriptNameData]
+    
+    init(id: String, categories: [String], languages: [String], author: String, weights: [String], license: String, licenseUrl: String, website: String, copyright: String, names: [String], descriptions: [String], postscriptNames: [PostscriptNameData]) {
         self.id = id
         self.categories = categories
         self.languages = languages
@@ -35,9 +38,41 @@ final class FreeFontData {
         self.licenseUrl = licenseUrl
         self.website = website
         self.copyright = copyright
-        self.nameJSON = nameJSON
-        self.descriptionJSON = descriptionJSON
-        self.postscriptNamesJSON = postscriptNamesJSON
+        self.names = names
+        self.descriptions = descriptions
+        self.postscriptNames = postscriptNames
+    }
+    
+    /// 获取本地化名称（第一个非空名称）
+    var localizedName: String {
+        names.first { !$0.isEmpty } ?? id
+    }
+    
+    /// 获取本地化描述（第一个非空描述）
+    var localizedDescription: String {
+        descriptions.first { !$0.isEmpty } ?? ""
+    }
+}
+
+/// PostscriptName 数据模型
+@Model
+final class PostscriptNameData {
+    var language: String
+    var weight: String
+    var postscriptName: String
+    var downloadUrls: [String]
+    var sha512: String
+    var size: Int
+    var version: String
+    
+    init(language: String, weight: String, postscriptName: String, downloadUrls: [String], sha512: String, size: Int, version: String) {
+        self.language = language
+        self.weight = weight
+        self.postscriptName = postscriptName
+        self.downloadUrls = downloadUrls
+        self.sha512 = sha512
+        self.size = size
+        self.version = version
     }
 }
 
@@ -57,14 +92,22 @@ struct FontAPIResponse: Codable {
     let postscriptNames: [PostscriptName]
     
     func toFreeFontData() -> FreeFontData {
-        let nameData = (try? JSONEncoder().encode(name)) ?? Data()
-        let nameJSON = String(data: nameData, encoding: .utf8) ?? "{}"
+        // 只取 name 和 description 的 values
+        let names = Array(name.values)
+        let descriptions = Array(description.values)
         
-        let descData = (try? JSONEncoder().encode(description)) ?? Data()
-        let descJSON = String(data: descData, encoding: .utf8) ?? "{}"
-        
-        let postData = (try? JSONEncoder().encode(postscriptNames)) ?? Data()
-        let postJSON = String(data: postData, encoding: .utf8) ?? "[]"
+        // 转换 PostscriptName 为 PostscriptNameData
+        let postscriptNamesData = postscriptNames.map { item in
+            PostscriptNameData(
+                language: item.language,
+                weight: item.weight,
+                postscriptName: item.postscriptName,
+                downloadUrls: item.downloadUrls,
+                sha512: item.sha512,
+                size: item.size,
+                version: item.version
+            )
+        }
         
         return FreeFontData(
             id: id,
@@ -76,9 +119,9 @@ struct FontAPIResponse: Codable {
             licenseUrl: licenseUrl,
             website: website,
             copyright: copyright,
-            nameJSON: nameJSON,
-            descriptionJSON: descJSON,
-            postscriptNamesJSON: postJSON
+            names: names,
+            descriptions: descriptions,
+            postscriptNames: postscriptNamesData
         )
     }
 }

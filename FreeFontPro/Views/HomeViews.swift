@@ -25,7 +25,7 @@ struct HomeView: View {
                         inputText: inputText
                     ),
                     svgHeight: svgHeight,
-                    title: font.nameJSON,
+                    title: font.names[0],
                     onTap: {
                         selectedFont = font
                     }
