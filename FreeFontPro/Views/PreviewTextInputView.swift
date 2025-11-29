@@ -91,5 +91,5 @@ struct PreviewTextInputView: View {
 }
 
 #Preview {
-    TextInputView(inputText: .constant("预览文本"))
+    PreviewTextInputView(inputText: .constant("预览文本"))
 }

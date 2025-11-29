@@ -117,7 +117,7 @@ struct HomeView: View {
 
 
 #Preview {
-    ContentView()
+    HomeView()
         .modelContainer(for: FontData.self, inMemory: true)
 }
 
