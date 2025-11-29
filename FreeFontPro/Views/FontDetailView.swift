@@ -9,7 +9,24 @@ struct FontDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                // 字体预览区域
+                
+                // 可下载的字体变体
+                if !font.postscriptNames.isEmpty {
+                    InfoSection(title: "可用字体") {
+                        ForEach(font.postscriptNames, id: \.language) { psName in
+                            FontVariantRow(
+                                language: psName.language,
+                                weight: psName.weight,
+                                version: psName.version,
+                                size: psName.size,
+                                onDownload: {
+                                    // TODO: 实现下载功能
+                                    print("下载: \(psName.postscriptName)")
+                                }
+                            )
+                        }
+                    }
+                }
                 // 基本信息区域
                 InfoSection(title: "基本信息") {
                     InfoRow(label: "字体名称", value: font.localizedName)
@@ -39,24 +56,6 @@ struct FontDetailView: View {
                     }
                     if !font.website.isEmpty {
                         LinkRow(label: "官方网站", url: font.website)
-                    }
-                }
-                
-                // 可下载的字体变体
-                if !font.postscriptNames.isEmpty {
-                    InfoSection(title: "可用字体") {
-                        ForEach(font.postscriptNames, id: \.postscriptName) { psName in
-                            FontVariantRow(
-                                language: psName.language,
-                                weight: psName.weight,
-                                version: psName.version,
-                                size: psName.size,
-                                onDownload: {
-                                    // TODO: 实现下载功能
-                                    print("下载: \(psName.postscriptName)")
-                                }
-                            )
-                        }
                     }
                 }
             }
