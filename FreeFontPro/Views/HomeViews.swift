@@ -15,6 +15,7 @@ struct HomeView: View {
     @AppStorage("previewText") private var inputText: String = "欢迎使用FreeFont Pro"
     @State var showInputSheet: Bool = false
     @State private var selectedFont: FontData? = nil
+    @State private var svgHeight: CGFloat = 60
     var body: some View {
         NavigationStack {
             List(fonts) { font in
@@ -23,7 +24,7 @@ struct HomeView: View {
                         postscriptName: "Z-Labs-Bitmap-12px-CN-Regular",
                         inputText: inputText
                     ),
-                    svgHeight: 60,
+                    svgHeight: svgHeight,
                     title: font.nameJSON,
                     onTap: {
                         selectedFont = font
@@ -61,11 +62,20 @@ struct HomeView: View {
                 }
                 ToolbarItem (placement: .bottomBar) {
                     Menu{
-                        Button("小") {
+                        Button {
+                            svgHeight = 60
+                        } label: {
+                            Label("小", systemImage: "textformat.size.smaller")
                         }
-                        Button("中") {
+                        Button {
+                            svgHeight = 80
+                        } label: {
+                            Label("中", systemImage: "textformat.size")
                         }
-                        Button("大") {
+                        Button {
+                            svgHeight = 100
+                        } label: {
+                            Label("大", systemImage: "textformat.size.larger")
                         }
                     } label: {
                         Image(systemName: "textformat.size")
