@@ -12,7 +12,7 @@ struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var fonts: [FontData]
     @AppStorage("fontDataVersion") private var currentVersion: String = ""
-    @State private var inputText: String = ""
+    @AppStorage("previewText") private var inputText: String = "你好"
     @State var showInputSheet: Bool = false
     var body: some View {
         NavigationStack {
@@ -20,9 +20,15 @@ struct HomeView: View {
                 NavigationLink {
                     FontDetailView()
                 } label: {
-                    Text(font.id)
+                    FontPreviewCard(
+                        svgUrl: "https://freefont.showtimemaker.com/api/freefont/Z-Labs-Bitmap-12px-CN-Regular?text=\(inputText)",
+                        svgHeight: 60,
+                        title: font.nameJSON
+                    )
                 }
+                .listRowSeparator(.hidden)
             }
+            .listStyle(.insetGrouped)
             .toolbar {
                 ToolbarItem (placement: .navigationBarTrailing){
                     Button("类别") {
