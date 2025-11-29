@@ -49,8 +49,29 @@ struct HomeView: View {
                     }
                 }
                 ToolbarItem (placement: .navigationBarTrailing){
-                    Button("类别") {
-                        
+                    Menu("风格") {
+                        Button("全部") {
+                        }
+                        Button("手写体") {
+                        }
+                        Button("像素体") {
+                        }
+                        Button("衬线体") {
+                        }
+                        Button("无衬线体") {
+                        }
+                        Button("等宽体") {
+                        }
+                        Button("艺术体") {
+                        }
+                        Button("书法体") {
+                        }
+                        Button("黑体") {
+                        }
+                        Button("宋体") {
+                        }
+                        Button("圆体") {
+                        }
                     }
                 }
                 ToolbarSpacer(.fixed, placement: .navigationBarTrailing)

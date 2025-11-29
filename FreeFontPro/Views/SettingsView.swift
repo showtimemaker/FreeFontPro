@@ -9,7 +9,6 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                // ...existing code...
                 // 语言设置
                 Section("语言") {
                     Picker("应用语言", selection: $appLanguage) {
