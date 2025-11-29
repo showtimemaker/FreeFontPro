@@ -17,6 +17,8 @@ struct HomeView: View {
     @State private var showSettings: Bool = false
     @State private var selectedFont: FreeFontData? = nil
     @State private var svgHeight: CGFloat = 60
+    @State private var selectedCategory: String = "all"
+    @State private var selectedLanguage: String = "all"
     var body: some View {
         NavigationStack {
             List(fonts) { font in
@@ -50,40 +52,145 @@ struct HomeView: View {
                 }
                 ToolbarItem (placement: .navigationBarTrailing){
                     Menu("风格") {
-                        Button("全部") {
+                        Button {
+                            selectedCategory = "all"
+                        } label: {
+                            if selectedCategory == "all" {
+                                Label("全部", systemImage: "checkmark")
+                            } else {
+                                Text("全部")
+                            }
                         }
-                        Button("手写体") {
+                        Button {
+                            selectedCategory = "handwriting"
+                        } label: {
+                            if selectedCategory == "handwriting" {
+                                Label("手写体", systemImage: "checkmark")
+                            } else {
+                                Text("手写体")
+                            }
                         }
-                        Button("像素体") {
+                        Button {
+                            selectedCategory = "pixel"
+                        } label: {
+                            if selectedCategory == "pixel" {
+                                Label("像素体", systemImage: "checkmark")
+                            } else {
+                                Text("像素体")
+                            }
                         }
-                        Button("衬线体") {
+                        Button {
+                            selectedCategory = "serif"
+                        } label: {
+                            if selectedCategory == "serif" {
+                                Label("衬线体", systemImage: "checkmark")
+                            } else {
+                                Text("衬线体")
+                            }
                         }
-                        Button("无衬线体") {
+                        Button {
+                            selectedCategory = "sans-serif"
+                        } label: {
+                            if selectedCategory == "sans-serif" {
+                                Label("无衬线体", systemImage: "checkmark")
+                            } else {
+                                Text("无衬线体")
+                            }
                         }
-                        Button("等宽体") {
+                        Button {
+                            selectedCategory = "monospace"
+                        } label: {
+                            if selectedCategory == "monospace" {
+                                Label("等宽体", systemImage: "checkmark")
+                            } else {
+                                Text("等宽体")
+                            }
                         }
-                        Button("艺术体") {
+                        Button {
+                            selectedCategory = "artistic"
+                        } label: {
+                            if selectedCategory == "artistic" {
+                                Label("艺术体", systemImage: "checkmark")
+                            } else {
+                                Text("艺术体")
+                            }
                         }
-                        Button("书法体") {
+                        Button {
+                            selectedCategory = "calligraphy"
+                        } label: {
+                            if selectedCategory == "calligraphy" {
+                                Label("书法体", systemImage: "checkmark")
+                            } else {
+                                Text("书法体")
+                            }
                         }
-                        Button("黑体") {
+                        Button {
+                            selectedCategory = "gothic"
+                        } label: {
+                            if selectedCategory == "gothic" {
+                                Label("黑体", systemImage: "checkmark")
+                            } else {
+                                Text("黑体")
+                            }
                         }
-                        Button("宋体") {
+                        Button {
+                            selectedCategory = "song"
+                        } label: {
+                            if selectedCategory == "song" {
+                                Label("宋体", systemImage: "checkmark")
+                            } else {
+                                Text("宋体")
+                            }
                         }
-                        Button("圆体") {
+                        Button {
+                            selectedCategory = "rounded"
+                        } label: {
+                            if selectedCategory == "rounded" {
+                                Label("圆体", systemImage: "checkmark")
+                            } else {
+                                Text("圆体")
+                            }
                         }
                     }
                 }
                 ToolbarSpacer(.fixed, placement: .navigationBarTrailing)
                 ToolbarItem (placement: .navigationBarTrailing){
                     Menu("语言") {
-                        Button("全部") {
+                        Button {
+                            selectedLanguage = "all"
+                        } label: {
+                            if selectedLanguage == "all" {
+                                Label("全部", systemImage: "checkmark")
+                            } else {
+                                Text("全部")
+                            }
                         }
-                        Button("简体中文") {
+                        Button {
+                            selectedLanguage = "zh-CN"
+                        } label: {
+                            if selectedLanguage == "zh-CN" {
+                                Label("简体中文", systemImage: "checkmark")
+                            } else {
+                                Text("简体中文")
+                            }
                         }
-                        Button("中国香港") {
+                        Button {
+                            selectedLanguage = "zh-HK"
+                        } label: {
+                            if selectedLanguage == "zh-HK" {
+                                Label("中国香港", systemImage: "checkmark")
+                            } else {
+                                Text("中国香港")
+                            }
                         }
-                        Button("日本") {
+                        Button {
+                            selectedLanguage = "ja"
+                        } label: {
+                            if selectedLanguage == "ja" {
+                                Label("日本", systemImage: "checkmark")
+                            } else {
+                                Text("日本")
+                            }
                         }
                     }
                 }
