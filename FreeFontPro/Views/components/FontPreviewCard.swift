@@ -16,13 +16,19 @@ struct FontPreviewCard: View {
     var onTap: (() -> Void)? = nil
     
     @State private var retryCount: Int = 0
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
         VStack {
             // 上部：SVG 预览区域，水平可滚动
             ScrollView(.horizontal, showsIndicators: false) {
                 WebImage(url: URL(string: svgUrl)) { image in
-                    image.resizable()
+                    if colorScheme == .dark {
+                        image.resizable()
+                            .colorInvert()
+                    } else {
+                        image.resizable()
+                    }
                 } placeholder: {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle())
@@ -45,7 +51,6 @@ struct FontPreviewCard: View {
                 .foregroundColor(.gray)
                 .font(.system(size: 12))
         }
-        .background(Color.white)
         .contentShape(Rectangle()) // 确保整个区域可点击
         .onTapGesture {
             onTap?()

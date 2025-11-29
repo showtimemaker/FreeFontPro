@@ -6,9 +6,18 @@ struct SettingsView: View {
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     @AppStorage("useSystemAppearance") private var useSystemAppearance: Bool = true
     
+    /// 根据用户设置返回颜色方案
+    private var colorScheme: ColorScheme? {
+        if useSystemAppearance {
+            return nil // 跟随系统
+        }
+        return isDarkMode ? .dark : .light
+    }
+    
     var body: some View {
         NavigationStack {
             Form {
+                // ...existing code...
                 // 语言设置
                 Section("语言") {
                     Picker("应用语言", selection: $appLanguage) {
@@ -56,6 +65,7 @@ struct SettingsView: View {
                 }
             }
         }
+        .preferredColorScheme(colorScheme)
     }
     
     /// 获取应用版本号
