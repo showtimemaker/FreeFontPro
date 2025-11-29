@@ -47,7 +47,7 @@ struct HomeView: View {
                 }
                 ToolbarSpacer(.fixed, placement: .navigationBarTrailing)
                 ToolbarItem (placement: .navigationBarTrailing){
-                    Menu{
+                    Menu("语言") {
                         Button("全部") {
                         }
                         Button("简体中文") {
@@ -56,8 +56,6 @@ struct HomeView: View {
                         }
                         Button("日本") {
                         }
-                    } label: {
-                        Image(systemName: "globe")
                     }
                 }
                 ToolbarItem (placement: .bottomBar) {
