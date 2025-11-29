@@ -7,6 +7,8 @@
 
 import SwiftUI
 import SwiftData
+import SDWebImage
+import SDWebImageSVGCoder
 
 @main
 struct FreeFont_Pro_App: App {
@@ -22,6 +24,10 @@ struct FreeFont_Pro_App: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    
+    init() {
+        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
+    }
 
     var body: some Scene {
         WindowGroup {
