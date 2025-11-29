@@ -12,23 +12,29 @@ struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var fonts: [FontData]
     @AppStorage("fontDataVersion") private var currentVersion: String = ""
-    @AppStorage("previewText") private var inputText: String = "你好"
+    @AppStorage("previewText") private var inputText: String = "欢迎使用FreeFont Pro"
     @State var showInputSheet: Bool = false
+    @State private var selectedFont: FontData? = nil
     var body: some View {
         NavigationStack {
             List(fonts) { font in
-                NavigationLink {
-                    FontDetailView()
-                } label: {
-                    FontPreviewCard(
-                        svgUrl: "https://freefont.showtimemaker.com/api/freefont/Z-Labs-Bitmap-12px-CN-Regular?text=\(inputText)",
-                        svgHeight: 60,
-                        title: font.nameJSON
-                    )
-                }
-                .listRowSeparator(.hidden)
+                FontPreviewCard(
+                    svgUrl: "https://freefont.showtimemaker.com/api/freefont/Z-Labs-Bitmap-12px-CN-Regular?text=\(inputText)",
+                    svgHeight: 60,
+                    title: font.nameJSON,
+                    onTap: {
+                        selectedFont = font
+                    }
+                )
+                .padding(.vertical, 16)
+                .padding(.horizontal, 16)
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color(.systemBackground))
             }
             .listStyle(.insetGrouped)
+            .navigationDestination(item: $selectedFont) { font in
+                FontDetailView()
+            }
             .toolbar {
                 ToolbarItem (placement: .navigationBarTrailing){
                     Button("类别") {
@@ -40,7 +46,7 @@ struct HomeView: View {
                     Menu{
                         Button("全部") {
                         }
-                        Button("中国大陆") {
+                        Button("简体中文") {
                         }
                         Button("中国香港") {
                         }

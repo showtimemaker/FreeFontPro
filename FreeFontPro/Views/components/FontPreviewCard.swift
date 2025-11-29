@@ -12,6 +12,8 @@ struct FontPreviewCard: View {
     let svgHeight: CGFloat
     /// 字体名称
     let title: String
+    /// 点击回调
+    var onTap: (() -> Void)? = nil
     
     var body: some View {
         VStack {
@@ -32,6 +34,10 @@ struct FontPreviewCard: View {
                 .foregroundColor(.gray)
         }
         .background(Color.white)
+        .contentShape(Rectangle()) // 确保整个区域可点击
+        .onTapGesture {
+            onTap?()
+        }
     }
 }
 
