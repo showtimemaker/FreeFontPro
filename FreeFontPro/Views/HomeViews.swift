@@ -10,17 +10,17 @@ import SwiftData
 
 struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var fonts: [FontData]
+    @Query private var fonts: [FreeFontData]
     @AppStorage("fontDataVersion") private var currentVersion: String = ""
     @AppStorage("previewText") private var inputText: String = "欢迎使用FreeFont Pro"
     @State var showInputSheet: Bool = false
-    @State private var selectedFont: FontData? = nil
+    @State private var selectedFont: FreeFontData? = nil
     @State private var svgHeight: CGFloat = 60
     var body: some View {
         NavigationStack {
             List(fonts) { font in
                 FontPreviewCard(
-                    svgUrl: FontService.shared.getFontPreviewUrl(
+                    svgUrl: FreeFontService.shared.getFontPreviewUrl(
                         postscriptName: "Z-Labs-Bitmap-12px-CN-Regular",
                         inputText: inputText
                     ),
@@ -109,22 +109,22 @@ struct HomeView: View {
     
     private func loadData() async {
         do {
-            let remoteVersion = try await FontService.shared.fetchVersion()
+            let remoteVersion = try await FreeFontService.shared.fetchVersion()
             if remoteVersion != currentVersion {
-                let fetchedFonts = try await FontService.shared.fetchFonts()
+                let fetchedFonts = try await FreeFontService.shared.fetchFonts()
                 
                 // Clear existing data if needed, or update logic. 
                 // Here we update existing or insert new ones.
                 for fontResponse in fetchedFonts {
                     let id = fontResponse.id
-                    let descriptor = FetchDescriptor<FontData>(predicate: #Predicate { $0.id == id })
+                    let descriptor = FetchDescriptor<FreeFontData>(predicate: #Predicate { $0.id == id })
                     
                     // Delete existing to ensure update
                     if let existing = try modelContext.fetch(descriptor).first {
                         modelContext.delete(existing)
                     }
                     
-                    let fontData = fontResponse.toFontData()
+                    let fontData = fontResponse.toFreeFontData()
                     modelContext.insert(fontData)
                 }
                 
@@ -143,7 +143,7 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
-        .modelContainer(for: FontData.self, inMemory: true)
+        .modelContainer(for: FreeFontData.self, inMemory: true)
 }
 
 

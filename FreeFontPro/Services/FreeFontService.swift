@@ -7,8 +7,8 @@
 
 import Foundation
 
-class FontService {
-    static let shared = FontService()
+class FreeFontService {
+    static let shared = FreeFontService()
     private let urlString = "https://freefont.showtimemaker.com/api/freefont/meta/data"
     private let versionUrlString = "https://freefont.showtimemaker.com/api/freefont/meta/version"
     

@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class FontData {
+final class FreeFontData {
     @Attribute(.unique) var id: String
     var categories: [String]
     var languages: [String]
@@ -56,7 +56,7 @@ struct FontAPIResponse: Codable {
     let copyright: String
     let postscriptNames: [PostscriptName]
     
-    func toFontData() -> FontData {
+    func toFreeFontData() -> FreeFontData {
         let nameData = (try? JSONEncoder().encode(name)) ?? Data()
         let nameJSON = String(data: nameData, encoding: .utf8) ?? "{}"
         
@@ -66,7 +66,7 @@ struct FontAPIResponse: Codable {
         let postData = (try? JSONEncoder().encode(postscriptNames)) ?? Data()
         let postJSON = String(data: postData, encoding: .utf8) ?? "[]"
         
-        return FontData(
+        return FreeFontData(
             id: id,
             categories: categories,
             languages: languages,

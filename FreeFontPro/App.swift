@@ -14,7 +14,7 @@ import SDWebImageSVGCoder
 struct FreeFont_Pro_App: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            FontData.self,
+            FreeFontData.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

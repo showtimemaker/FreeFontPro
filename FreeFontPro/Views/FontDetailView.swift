@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct FontDetailView: View {
-    let font: FontData
+    let font: FreeFontData
     
     var body: some View {
         ScrollView {
@@ -15,7 +15,7 @@ struct FontDetailView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("下载") {
-                    // 分享功能待实现
+                    // 下载功能待实现
                 }
             }
         }
