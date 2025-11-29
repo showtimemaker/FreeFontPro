@@ -16,6 +16,7 @@ struct HomeView: View {
     @State var showInputSheet: Bool = false
     @State private var selectedFont: FreeFontData? = nil
     @State private var svgHeight: CGFloat = 60
+    @State private var showSettings: Bool = false
     var body: some View {
         NavigationStack {
             List(fonts) { font in
@@ -40,6 +41,13 @@ struct HomeView: View {
                 FontDetailView(font: font)
             }
             .toolbar {
+                ToolbarItem (placement: .navigationBarLeading){
+                    Button {
+                        showSettings = true
+                    } label: {
+                        Image(systemName: "gearshape")
+                    }
+                }
                 ToolbarItem (placement: .navigationBarTrailing){
                     Button("类别") {
                         
@@ -98,6 +106,9 @@ struct HomeView: View {
             }
             .fullScreenCover(isPresented: $showInputSheet) {
                 PreviewTextInputView(inputText: $inputText)
+            }
+            .sheet(isPresented: $showSettings) {
+                SettingsView()
             }
             .task {
                 await loadData()
