@@ -15,6 +15,8 @@ struct FontPreviewCard: View {
     /// 点击回调
     var onTap: (() -> Void)? = nil
     
+    @State private var retryCount: Int = 0
+    
     var body: some View {
         VStack {
             // 上部：SVG 预览区域，水平可滚动
@@ -25,7 +27,13 @@ struct FontPreviewCard: View {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle())
                 }
-                .indicator(.activity)
+                .onFailure { error in
+                    print("SVG 加载失败: \(error.localizedDescription)")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                        retryCount += 1
+                    }
+                }
+                .id(retryCount) // 改变 id 触发重新加载
                 .transition(.fade(duration: 0.5))
                 .scaledToFit()
             }
