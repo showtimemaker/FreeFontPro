@@ -12,8 +12,8 @@ struct SettingsView: View {
                 // 语言设置
                 Section("语言") {
                     Picker("应用语言", selection: $appLanguage) {
-                        Text("English").tag("en")
                         Text("跟随系统").tag("system")
+                        Text("English").tag("en")
                         Text("简体中文").tag("zh-Hans")
                         Text("繁體中文").tag("zh-Hant")
                         Text("日本語").tag("ja")

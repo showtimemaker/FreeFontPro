@@ -81,10 +81,10 @@ struct FontAPIResponse: Codable {
     let id: String
     let categories: [String]
     let languages: [String]
-    let name: [String: String]
+    let names: [String]
     let author: String
     let weights: [String]
-    let description: [String: String]
+    let descriptions: [String]
     let license: String
     let licenseUrl: String
     let website: String
@@ -93,8 +93,8 @@ struct FontAPIResponse: Codable {
     
     func toFreeFontData() -> FreeFontData {
         // 只取 name 和 description 的 values
-        let names = Array(name.values)
-        let descriptions = Array(description.values)
+        // let names = Array(name.values)
+        // let descriptions = Array(description.values)
         
         // 转换 PostscriptName 为 PostscriptNameData
         let postscriptNamesData = postscriptNames.map { item in
