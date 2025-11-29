@@ -22,7 +22,8 @@ struct FontPreviewCard: View {
                 WebImage(url: URL(string: svgUrl)) { image in
                     image.resizable()
                 } placeholder: {
-                    Rectangle().foregroundColor(.gray)
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
                 }
                 .indicator(.activity)
                 .transition(.fade(duration: 0.5))
@@ -30,8 +31,10 @@ struct FontPreviewCard: View {
             }
             .frame(height: svgHeight)
             Text(title)
+                .lineLimit(1)
                 .padding(.vertical, 8)
                 .foregroundColor(.gray)
+                .font(.system(size: 12))
         }
         .background(Color.white)
         .contentShape(Rectangle()) // 确保整个区域可点击
