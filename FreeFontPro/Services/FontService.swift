@@ -33,4 +33,8 @@ class FontService {
         }
         return version
     }
+
+    func getFontPreviewUrl(postscriptName: String, inputText: String) -> String {
+        return "https://freefont.showtimemaker.com/api/freefont/\(postscriptName)?text=\(inputText)"
+    }
 }

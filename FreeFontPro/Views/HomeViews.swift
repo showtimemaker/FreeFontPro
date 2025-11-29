@@ -19,7 +19,10 @@ struct HomeView: View {
         NavigationStack {
             List(fonts) { font in
                 FontPreviewCard(
-                    svgUrl: "https://freefont.showtimemaker.com/api/freefont/Z-Labs-Bitmap-12px-CN-Regular?text=\(inputText)",
+                    svgUrl: FontService.shared.getFontPreviewUrl(
+                        postscriptName: "Z-Labs-Bitmap-12px-CN-Regular",
+                        inputText: inputText
+                    ),
                     svgHeight: 60,
                     title: font.nameJSON,
                     onTap: {
@@ -33,7 +36,7 @@ struct HomeView: View {
             }
             .listStyle(.insetGrouped)
             .navigationDestination(item: $selectedFont) { font in
-                FontDetailView()
+                FontDetailView(font: font)
             }
             .toolbar {
                 ToolbarItem (placement: .navigationBarTrailing){

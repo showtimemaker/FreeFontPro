@@ -1,16 +1,23 @@
 import SwiftUI
 
 struct FontDetailView: View {
+    let font: FontData
+    
     var body: some View {
-        let svgText = """
-        <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="40" fill="red"/>
-        </svg>
-        """
-
         ScrollView {
-//            SvgTextView(svgText: svgText)
-//                .frame(width: 300, height: 300)
+            Text(font.nameJSON)
+            Text(font.author)
+            Text(font.license)
+            Text(font.licenseUrl)
+            Text(font.copyright)
+            Text(font.website)
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("下载") {
+                    // 分享功能待实现
+                }
+            }
         }
     }
 }
