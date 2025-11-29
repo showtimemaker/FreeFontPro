@@ -14,9 +14,9 @@ struct HomeView: View {
     @AppStorage("fontDataVersion") private var currentVersion: String = ""
     @AppStorage("previewText") private var inputText: String = "欢迎使用FreeFont Pro"
     @State var showInputSheet: Bool = false
+    @State private var showSettings: Bool = false
     @State private var selectedFont: FreeFontData? = nil
     @State private var svgHeight: CGFloat = 60
-    @State private var showSettings: Bool = false
     var body: some View {
         NavigationStack {
             List(fonts) { font in
