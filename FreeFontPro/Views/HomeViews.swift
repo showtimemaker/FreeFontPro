@@ -9,19 +9,18 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var fonts: [FreeFontData]
+    private var fonts = FreeFont
     @AppStorage("fontDataVersion") private var currentVersion: String = ""
     @AppStorage("previewText") private var inputText: String = "欢迎使用FreeFont Pro"
     @State var showInputSheet: Bool = false
     @State private var showSettings: Bool = false
-    @State private var selectedFont: FreeFontData? = nil
+    @State private var selectedFont: FreeFontModel? = nil
     @State private var svgHeight: CGFloat = 60
     @State private var selectedCategory: String = "all"
     @State private var selectedLanguage: String = "all"
     
     // 过滤后的字体列表
-    private var filteredFonts: [FreeFontData] {
+    private var filteredFonts: [FreeFontModel] {
         fonts.filter { font in
             let categoryMatch = selectedCategory == "all" || font.categories.contains(selectedCategory)
             let languageMatch = selectedLanguage == "all" || font.languages.contains(selectedLanguage)
@@ -34,7 +33,7 @@ struct HomeView: View {
             List(filteredFonts) { font in
                 FontPreviewCard(
                     svgUrl: FreeFontService.shared.getFontPreviewUrl(
-                        postscriptName: font.postscriptNames.first?.postscriptName ?? font.id,
+                        postscriptName: font.postscriptNames.first?.postscriptName ?? "",
                         inputText: inputText
                     ),
                     svgHeight: svgHeight,
@@ -248,49 +247,48 @@ struct HomeView: View {
             .sheet(isPresented: $showSettings) {
                 SettingsView()
             }
-            .task {
-                await loadData()
-            }
+            // .task {
+            //     await loadData()
+            // }
         }
     }
     
-    private func loadData() async {
-        do {
-            let remoteVersion = try await FreeFontService.shared.fetchVersion()
-            if remoteVersion != currentVersion {
-                let fetchedFonts = try await FreeFontService.shared.fetchFonts()
+    // private func loadData() async {
+    //     do {
+    //         let remoteVersion = try await FreeFontService.shared.fetchVersion()
+    //         if remoteVersion != currentVersion {
+    //             let fetchedFonts = try await FreeFontService.shared.fetchFonts()
                 
-                // Clear existing data if needed, or update logic. 
-                // Here we update existing or insert new ones.
-                for fontResponse in fetchedFonts {
-                    let id = fontResponse.id
-                    let descriptor = FetchDescriptor<FreeFontData>(predicate: #Predicate { $0.id == id })
+    //             // Clear existing data if needed, or update logic. 
+    //             // Here we update existing or insert new ones.
+    //             for fontResponse in fetchedFonts {
+    //                 let id = fontResponse.id
+    //                 let descriptor = FetchDescriptor<FreeFontData>(predicate: #Predicate { $0.id == id })
                     
-                    // Delete existing to ensure update
-                    if let existing = try modelContext.fetch(descriptor).first {
-                        modelContext.delete(existing)
-                    }
+    //                 // Delete existing to ensure update
+    //                 if let existing = try modelContext.fetch(descriptor).first {
+    //                     modelContext.delete(existing)
+    //                 }
                     
-                    let fontData = fontResponse.toFreeFontData()
-                    modelContext.insert(fontData)
-                }
+    //                 let fontData = fontResponse.toFreeFontData()
+    //                 modelContext.insert(fontData)
+    //             }
                 
-                currentVersion = remoteVersion
-                print("Updated fonts to version: \(remoteVersion)")
-            } else {
-                print("Fonts are up to date (version: \(currentVersion))")
-            }
-        } catch {
-            print("Failed to fetch fonts or version: \(error)")
-        }
-    }
+    //             currentVersion = remoteVersion
+    //             print("Updated fonts to version: \(remoteVersion)")
+    //         } else {
+    //             print("Fonts are up to date (version: \(currentVersion))")
+    //         }
+    //     } catch {
+    //         print("Failed to fetch fonts or version: \(error)")
+    //     }
+    // }
 }
 
 
 
 #Preview {
     HomeView()
-        .modelContainer(for: FreeFontData.self, inMemory: true)
 }
 
 

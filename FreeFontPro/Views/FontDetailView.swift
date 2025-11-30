@@ -1,7 +1,9 @@
 import SwiftUI
+import SDWebImage
+import SDWebImageSwiftUI
 
 struct FontDetailView: View {
-    let font: FreeFontData
+    let font: FreeFontModel
     @AppStorage("previewText") private var previewText: String = "欢迎使用FreeFont Pro"
     @State private var selectedWeight: String = ""
     @State private var selectedLanguage: String = ""
@@ -10,15 +12,23 @@ struct FontDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 
+                // 字体预览区域
+                if let firstVariant = font.postscriptNames.first {
+                    FontPreviewSection(
+                        postscriptName: firstVariant.postscriptName,
+                        previewText: previewText
+                    )
+                }
+                
                 // 可下载的字体变体
                 if !font.postscriptNames.isEmpty {
                     InfoSection(title: "可用字体") {
-                        ForEach(font.postscriptNames, id: \.language) { psName in
+                        ForEach(font.postscriptNames) { psName in
                             FontVariantRow(
                                 language: psName.language,
                                 weight: psName.weight,
                                 version: psName.version,
-                                size: psName.size,
+                                fileName: psName.fileName,
                                 onDownload: {
                                     // TODO: 实现下载功能
                                     print("下载: \(psName.postscriptName)")
@@ -27,11 +37,12 @@ struct FontDetailView: View {
                         }
                     }
                 }
+                
                 // 基本信息区域
                 InfoSection(title: "基本信息") {
-                    InfoRow(label: "字体名称", value: font.localizedName)
-                    if !font.localizedDescription.isEmpty {
-                        InfoRow(label: "描述", value: font.localizedDescription)
+                    InfoRow(label: "字体名称", value: font.names[0])
+                    if !font.descriptions[0].isEmpty {
+                        InfoRow(label: "描述", value: font.descriptions[0])
                     }
                     InfoRow(label: "作者", value: font.author)
                     if !font.categories.isEmpty {
@@ -61,7 +72,7 @@ struct FontDetailView: View {
             }
             .padding()
         }
-        .navigationTitle(font.localizedName)
+        .navigationTitle(font.names[0])
         .navigationBarTitleDisplayMode(.large)
     }
 }
@@ -72,6 +83,7 @@ struct FontPreviewSection: View {
     let previewText: String
     @State private var retryCount: Int = 0
     @Environment(\.colorScheme) private var colorScheme
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("预览")
@@ -192,14 +204,8 @@ struct FontVariantRow: View {
     let language: String
     let weight: String
     let version: String
-    let size: Int
+    let fileName: String
     let onDownload: () -> Void
-    
-    private var sizeString: String {
-        let formatter = ByteCountFormatter()
-        formatter.countStyle = .file
-        return formatter.string(fromByteCount: Int64(size))
-    }
     
     var body: some View {
         HStack {
@@ -215,12 +221,12 @@ struct FontVariantRow: View {
                         .foregroundColor(.secondary)
                 }
                 HStack {
-                    Text("版本 \(version)")
+                    Text(version)
                         .font(.caption)
                         .foregroundColor(.secondary)
                     Text("·")
                         .foregroundColor(.secondary)
-                    Text(sizeString)
+                    Text(fileName)
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -237,8 +243,3 @@ struct FontVariantRow: View {
         .padding(.vertical, 4)
     }
 }
-
-// 导入必要的依赖
-import SDWebImage
-import SDWebImageSwiftUI
-
