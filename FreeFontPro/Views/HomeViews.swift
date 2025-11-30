@@ -19,12 +19,22 @@ struct HomeView: View {
     @State private var svgHeight: CGFloat = 60
     @State private var selectedCategory: String = "all"
     @State private var selectedLanguage: String = "all"
+    
+    // 过滤后的字体列表
+    private var filteredFonts: [FreeFontData] {
+        fonts.filter { font in
+            let categoryMatch = selectedCategory == "all" || font.categories.contains(selectedCategory)
+            let languageMatch = selectedLanguage == "all" || font.languages.contains(selectedLanguage)
+            return categoryMatch && languageMatch
+        }
+    }
+    
     var body: some View {
         NavigationStack {
-            List(fonts) { font in
+            List(filteredFonts) { font in
                 FontPreviewCard(
                     svgUrl: FreeFontService.shared.getFontPreviewUrl(
-                        postscriptName: "Z-Labs-Bitmap-12px-CN-Regular",
+                        postscriptName: font.postscriptNames.first?.postscriptName ?? font.id,
                         inputText: inputText
                     ),
                     svgHeight: svgHeight,
@@ -166,19 +176,19 @@ struct HomeView: View {
                             }
                         }
                         Button {
-                            selectedLanguage = "zh-CN"
+                            selectedLanguage = "zh-Hans"
                         } label: {
-                            if selectedLanguage == "zh-CN" {
+                            if selectedLanguage == "zh-Hans" {
                                 Label("简体中文", systemImage: "checkmark")
                             } else {
                                 Text("简体中文")
                             }
                         }
                         Button {
-                            selectedLanguage = "zh-HK"
+                            selectedLanguage = "zh-Hant"
                         } label: {
-                            if selectedLanguage == "zh-HK" {
-                                Label("中国香港", systemImage: "checkmark")
+                            if selectedLanguage == "zh-Hant" {
+                                Label("繁体中文", systemImage: "checkmark")
                             } else {
                                 Text("中国香港")
                             }
