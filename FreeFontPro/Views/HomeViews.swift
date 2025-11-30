@@ -159,38 +159,22 @@ struct HomeView: View {
                         Button {
                             selectedLanguage = "all"
                         } label: {
-                            if selectedLanguage == "all" {
-                                Label("全部", systemImage: "checkmark")
-                            } else {
-                                Text("全部")
-                            }
+                            Label("全部", systemImage: selectedLanguage == "all" ? "checkmark" : "")
                         }
                         Button {
                             selectedLanguage = "zh-CN"
                         } label: {
-                            if selectedLanguage == "zh-CN" {
-                                Label("简体中文", systemImage: "checkmark")
-                            } else {
-                                Text("简体中文")
-                            }
+                            Label("简体中文", systemImage: selectedLanguage == "zh-CN" ? "checkmark" : "")
                         }
                         Button {
                             selectedLanguage = "zh-HK"
                         } label: {
-                            if selectedLanguage == "zh-HK" {
-                                Label("中国香港", systemImage: "checkmark")
-                            } else {
-                                Text("中国香港")
-                            }
+                            Label("中国香港", systemImage: selectedLanguage == "zh-HK" ? "checkmark" : "")
                         }
                         Button {
                             selectedLanguage = "ja"
                         } label: {
-                            if selectedLanguage == "ja" {
-                                Label("日本", systemImage: "checkmark")
-                            } else {
-                                Text("日本")
-                            }
+                            Label("日本", systemImage: selectedLanguage == "ja" ? "checkmark" : "")
                         }
                     }
                 }
