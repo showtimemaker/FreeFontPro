@@ -23,6 +23,22 @@ let FreeFont: [FreeFontModel] = [
               fileName: "ZLabsBitmap_12px_CN",
               fileExt: "ttf",
               version: "Version 0.98"
+            ),
+            .init(
+              language: "zh-Hant",
+              weight: "Regular",
+              postscriptName: "Z-Labs-Bitmap-12px-HC-Regular",
+              fileName: "ZLabsBitmap_12px_HC",
+              fileExt: "ttf",
+              version: "Version 1.0_HC"
+            ),
+            .init(
+              language: "ja",
+              weight: "Regular",
+              postscriptName: "Z-Labs-Bitmap-12px-JP-Regular",
+              fileName: "ZLabsBitmap_12px_JP",
+              fileExt: "ttf",
+              version: "Version 1.01_JP"
             )
         ]
     )
