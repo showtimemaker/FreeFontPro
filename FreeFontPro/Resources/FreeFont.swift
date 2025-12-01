@@ -20,7 +20,8 @@ let FreeFont: [FreeFontModel] = [
               language: "zh-Hans",
               weight: "Regular",
               postscriptName: "Z-Labs-Bitmap-12px-CN-Regular",
-              fileName: "ZLabsBitmap_12px_CN.ttf",
+              fileName: "ZLabsBitmap_12px_CN",
+              fileExt: "ttf",
               version: "Version 0.98"
             )
         ]

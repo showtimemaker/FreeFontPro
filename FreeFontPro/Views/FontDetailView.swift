@@ -30,8 +30,18 @@ struct FontDetailView: View {
                                 version: psName.version,
                                 fileName: psName.fileName,
                                 onDownload: {
-                                    // TODO: 实现下载功能
-                                    print("下载: \(psName.postscriptName)")
+                                    if let url = Bundle.main.url(forResource: psName.fileName, withExtension: psName.fileExt) {
+                                        Task {
+                                            do {
+                                                try await FontManager.shared.installFont(from: url)
+                                                print("字体安装成功")
+                                            } catch {
+                                                print("字体安装失败: \(error.localizedDescription)")
+                                            }
+                                        }
+                                    } else {
+                                        print("找不到字体文件: \(psName.fileName).\(psName.fileExt)")
+                                    }
                                 }
                             )
                         }

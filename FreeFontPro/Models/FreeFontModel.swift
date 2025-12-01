@@ -20,6 +20,7 @@ struct FreeFontModel: Identifiable, Hashable {
         let weight: String
         let postscriptName: String
         let fileName: String
+        let fileExt: String
         let version: String
     }
 }
