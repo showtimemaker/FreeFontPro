@@ -34,9 +34,24 @@
 		C81578D12ED9142300A3C815 /* FreeFontProUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FreeFontProUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C84B0EAB2EDC8F1C00896149 /* Exceptions for "FreeFontPro" folder in "FreeFontPro" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			assetTagsByRelativePath = {
+				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_CN.ttf = (ZLabsBitmap_12px_CN.ttf, );
+				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_HC.ttf = (ZLabsBitmap_12px_HC.ttf, );
+				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_JP.ttf = (ZLabsBitmap_12px_JP.ttf, );
+			};
+			target = C81578B72ED9142200A3C815 /* FreeFontPro */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C81578BA2ED9142200A3C815 /* FreeFontPro */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C84B0EAB2EDC8F1C00896149 /* Exceptions for "FreeFontPro" folder in "FreeFontPro" target */,
+			);
 			path = FreeFontPro;
 			sourceTree = "<group>";
 		};
@@ -179,6 +194,11 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				KnownAssetTags = (
+					ZLabsBitmap_12px_CN.ttf,
+					ZLabsBitmap_12px_HC.ttf,
+					ZLabsBitmap_12px_JP.ttf,
+				);
 				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
