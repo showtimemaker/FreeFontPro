@@ -39,7 +39,7 @@ struct FontDetailView: View {
                                 language: psName.language,
                                 weight: psName.weight,
                                 version: psName.version,
-                                fileName: psName.fileName,
+                                fileName: "\(psName.fileName).\(psName.fileExt)",
                                 state: fontStates[psName.fileName] ?? .checking,
                                 onAction: {
                                     handleFontAction(psName: psName)
@@ -142,7 +142,12 @@ struct FontDetailView: View {
         fontStates[psName.fileName] = .downloading(0.0)
         
         do {
-            _ = try await FreeFontService.shared.downloadODRResource(tag: "\(psName.fileName).\(psName.fileExt)")
+            // 使用带进度回调的下载方法
+            try await FreeFontService.shared.downloadODRResource(tag: "\(psName.fileName).\(psName.fileExt)") { progress in
+                // 更新下载进度
+                self.fontStates[psName.fileName] = .downloading(progress)
+            }
+            
             fontStates[psName.fileName] = .downloaded
         } catch {
             fontStates[psName.fileName] = .error("下载失败: \(error.localizedDescription)")
