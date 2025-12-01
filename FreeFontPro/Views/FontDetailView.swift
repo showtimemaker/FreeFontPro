@@ -7,6 +7,17 @@ struct FontDetailView: View {
     @AppStorage("previewText") private var previewText: String = "欢迎使用FreeFont Pro"
     @State private var selectedWeight: String = ""
     @State private var selectedLanguage: String = ""
+    @State private var fontStates: [String: FontState] = [:]
+    
+    enum FontState {
+        case checking          // 正在检查
+        case needDownload      // 需要下载
+        case downloading(Double) // 正在下载（进度）
+        case downloaded        // 已下载，可以安装
+        case installing        // 正在安装
+        case installed         // 已安装
+        case error(String)     // 错误状态
+    }
     
     var body: some View {
         ScrollView {
@@ -29,19 +40,9 @@ struct FontDetailView: View {
                                 weight: psName.weight,
                                 version: psName.version,
                                 fileName: psName.fileName,
-                                onDownload: {
-                                    if let url = Bundle.main.url(forResource: psName.fileName, withExtension: psName.fileExt) {
-                                        Task {
-                                            do {
-                                                try await FontManager.shared.installFont(from: url)
-                                                print("字体安装成功")
-                                            } catch {
-                                                print("字体安装失败: \(error.localizedDescription)")
-                                            }
-                                        }
-                                    } else {
-                                        print("找不到字体文件: \(psName.fileName).\(psName.fileExt)")
-                                    }
+                                state: fontStates[psName.fileName] ?? .checking,
+                                onAction: {
+                                    handleFontAction(psName: psName)
                                 }
                             )
                         }
@@ -84,6 +85,95 @@ struct FontDetailView: View {
         }
         .navigationTitle(font.names[0])
         .navigationBarTitleDisplayMode(.large)
+        .task {
+            await checkAllFontsStatus()
+        }
+    }
+    
+    // MARK: - Helper Methods
+    
+    /// 检查所有字体的状态
+    private func checkAllFontsStatus() async {
+        for psName in font.postscriptNames {
+            await checkFontStatus(psName: psName)
+        }
+    }
+    
+    /// 检查单个字体的状态
+    private func checkFontStatus(psName: FreeFontModel.PostscriptName) async {
+        fontStates[psName.fileName] = .checking
+        
+        // 首先检查字体是否已安装
+        if FontManager.shared.isFontRegistered(postscriptName: psName.postscriptName) {
+            fontStates[psName.fileName] = .installed
+            return
+        }
+        
+        // 检查 ODR 资源是否已下载
+        if FreeFontService.shared.checkODRAvailability(forResource: psName.fileName, withExtension: psName.fileExt) {
+            fontStates[psName.fileName] = .downloaded
+        } else {
+            fontStates[psName.fileName] = .needDownload
+        }
+    }
+    
+    /// 处理字体操作（下载或安装）
+    private func handleFontAction(psName: FreeFontModel.PostscriptName) {
+        Task {
+            let currentState = fontStates[psName.fileName] ?? .checking
+            
+            switch currentState {
+            case .needDownload:
+                await downloadFont(psName: psName)
+            case .downloaded:
+                await installFont(psName: psName)
+            case .installed:
+                // 已安装，不做任何操作
+                break
+            default:
+                // 正在处理中，不做任何操作
+                break
+            }
+        }
+    }
+    
+    /// 下载字体
+    private func downloadFont(psName: FreeFontModel.PostscriptName) async {
+        fontStates[psName.fileName] = .downloading(0.0)
+        
+        do {
+            _ = try await FreeFontService.shared.downloadODRResource(tag: "\(psName.fileName).\(psName.fileExt)")
+            fontStates[psName.fileName] = .downloaded
+        } catch {
+            fontStates[psName.fileName] = .error("下载失败: \(error.localizedDescription)")
+            
+            // 3秒后重置为需要下载状态
+            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            fontStates[psName.fileName] = .needDownload
+        }
+    }
+    
+    /// 安装字体
+    private func installFont(psName: FreeFontModel.PostscriptName) async {
+        fontStates[psName.fileName] = .installing
+        
+        do {
+            guard let fontURL = Bundle.main.url(forResource: psName.fileName, withExtension: psName.fileExt) else {
+                throw NSError(domain: "FontDetailView", code: 404, userInfo: [
+                    NSLocalizedDescriptionKey: "字体文件未找到"
+                ])
+            }
+            
+            // 安装字体
+            try await FontManager.shared.installFont(from: fontURL)
+            fontStates[psName.fileName] = .installed
+        } catch {
+            fontStates[psName.fileName] = .error("安装失败: \(error.localizedDescription)")
+            
+            // 3秒后重置为已下载状态
+            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            fontStates[psName.fileName] = .downloaded
+        }
     }
 }
 
@@ -215,7 +305,8 @@ struct FontVariantRow: View {
     let weight: String
     let version: String
     let fileName: String
-    let onDownload: () -> Void
+    let state: FontDetailView.FontState
+    let onAction: () -> Void
     
     var body: some View {
         HStack {
@@ -244,10 +335,69 @@ struct FontVariantRow: View {
             
             Spacer()
             
-            Button(action: onDownload) {
-                Image(systemName: "arrow.down.circle")
-                    .font(.title2)
-                    .foregroundColor(.blue)
+            // 根据状态显示不同的按钮
+            Group {
+                switch state {
+                case .checking:
+                    ProgressView()
+                        .scaleEffect(0.8)
+                    
+                case .needDownload:
+                    Button(action: onAction) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "arrow.down.circle")
+                            Text("下载")
+                        }
+                        .font(.body)
+                        .foregroundColor(.blue)
+                    }
+                    
+                case .downloading(let progress):
+                    VStack(spacing: 4) {
+                        ProgressView(value: progress)
+                            .frame(width: 60)
+                        Text("\(Int(progress * 100))%")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                case .downloaded:
+                    Button(action: onAction) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "square.and.arrow.down")
+                            Text("安装")
+                        }
+                        .font(.body)
+                        .foregroundColor(.green)
+                    }
+                    
+                case .installing:
+                    HStack(spacing: 8) {
+                        ProgressView()
+                            .scaleEffect(0.8)
+                        Text("安装中...")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                case .installed:
+                    HStack(spacing: 4) {
+                        Image(systemName: "checkmark.circle.fill")
+                        Text("已安装")
+                    }
+                    .font(.body)
+                    .foregroundColor(.green)
+                    
+                case .error(let message):
+                    VStack(alignment: .trailing, spacing: 2) {
+                        Text(message)
+                            .font(.caption)
+                            .foregroundColor(.red)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    .frame(maxWidth: 150)
+                }
             }
         }
         .padding(.vertical, 4)
