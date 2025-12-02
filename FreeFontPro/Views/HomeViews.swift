@@ -68,7 +68,7 @@ struct HomeView: View {
                     }
                 }
                 ToolbarItem (placement: .navigationBarTrailing){
-                    Menu("风格") {
+                    Menu {
                         Button {
                             selectedCategory = "all"
                         } label: {
@@ -168,11 +168,13 @@ struct HomeView: View {
                                 Text("圆体")
                             }
                         }
+                    } label: {
+                        Label("风格", systemImage: "scribble.variable")
                     }
                 }
                 ToolbarSpacer(.fixed, placement: .navigationBarTrailing)
                 ToolbarItem (placement: .navigationBarTrailing){
-                    Menu("语言") {
+                    Menu {
                         Button {
                             selectedLanguage = "all"
                         } label: {
@@ -209,6 +211,8 @@ struct HomeView: View {
                                 Text("日本")
                             }
                         }
+                    } label: {
+                        Label("语言", systemImage: "globe")
                     }
                 }
                 ToolbarItem (placement: .bottomBar) {
