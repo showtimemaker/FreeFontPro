@@ -15,8 +15,17 @@ class FreeFontService {
     }
 
 
-    func checkODRAvailability(forResource: String, withExtension: String) -> Bool {
-        return nil != Bundle.main.url(forResource: forResource, withExtension: withExtension)
+    func checkODRAvailability(forResource: String, withExtension: String, completion: @escaping (URL?) -> Void) {
+        let request = NSBundleResourceRequest(tags: ["\(forResource).\(withExtension)"])
+
+        request.conditionallyBeginAccessingResources { available in
+            if available {
+                let url = request.bundle.url(forResource: forResource, withExtension: withExtension)
+                completion(url)
+            } else {
+                completion(nil)
+            }
+        }
     }
 
     /// 下载 ODR 资源（带进度回调）
