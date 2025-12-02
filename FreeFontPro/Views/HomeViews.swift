@@ -18,6 +18,7 @@ struct HomeView: View {
     @State private var svgHeight: CGFloat = 60
     @State private var selectedCategory: String = "all"
     @State private var selectedLanguage: String = "all"
+    @Environment(\.colorScheme) private var colorScheme
     
     // 过滤后的字体列表
     private var filteredFonts: [FreeFontModel] {
@@ -45,7 +46,7 @@ struct HomeView: View {
                 .listRowSeparator(.hidden)
                 .listRowBackground(
                     RoundedRectangle(cornerRadius: 16)
-                        .fill(Color(.systemBackground))
+                        .fill(Color(uiColor: colorScheme == .dark ? .secondarySystemBackground : .systemBackground))
                         .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
