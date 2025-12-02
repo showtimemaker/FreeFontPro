@@ -42,12 +42,20 @@ struct HomeView: View {
                         selectedFont = font
                     }
                 )
-                .padding(.vertical, 16)
-                .padding(.horizontal, 16)
-                .listRowInsets(EdgeInsets())
-                .listRowBackground(Color(.systemBackground))
+                .listRowSeparator(.hidden)
+                .listRowBackground(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color(.systemBackground))
+                        .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                )
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
             }
-            .listStyle(.insetGrouped)
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .background(Color(.systemGroupedBackground))
             .navigationDestination(item: $selectedFont) { font in
                 FontDetailView(font: font)
             }
