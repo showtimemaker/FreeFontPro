@@ -199,16 +199,16 @@ struct HomeView: View {
                             if selectedLanguage == "zh-Hant" {
                                 Label("繁体中文", systemImage: "checkmark")
                             } else {
-                                Text("中国香港")
+                                Text("繁体中文")
                             }
                         }
                         Button {
                             selectedLanguage = "ja"
                         } label: {
                             if selectedLanguage == "ja" {
-                                Label("日本", systemImage: "checkmark")
+                                Label("日本語", systemImage: "checkmark")
                             } else {
-                                Text("日本")
+                                Text("日本語")
                             }
                         }
                     } label: {
