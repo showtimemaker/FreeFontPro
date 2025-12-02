@@ -56,15 +56,6 @@ struct SettingsView: View {
                 }
             }
         }
-        .preferredColorScheme(colorScheme)
-    }
-    
-    /// 根据用户设置返回颜色方案
-    private var colorScheme: ColorScheme? {
-        if useSystemAppearance {
-            return nil // 跟随系统
-        }
-        return isDarkMode ? .dark : .light
     }
     
     /// 获取应用版本号
