@@ -110,7 +110,7 @@ struct FontDetailView: View {
         }
         
         // 检查 ODR 资源是否已下载
-        if FreeFontService.shared.checkODRAvailability(forResource: psName.fileName, withExtension: psName.fileExt) {
+        if await FreeFontService.shared.checkODRAvailability(tag: "\(psName.fileName).\(psName.fileExt)") {
             fontStates[psName.fileName] = .downloaded
         } else {
             fontStates[psName.fileName] = .needDownload
@@ -163,7 +163,10 @@ struct FontDetailView: View {
         fontStates[psName.fileName] = .installing
         
         do {
-            guard let fontURL = Bundle.main.url(forResource: psName.fileName, withExtension: psName.fileExt) else {
+            let tag = "\(psName.fileName).\(psName.fileExt)"
+            let request = NSBundleResourceRequest(tags: [tag])
+            try await request.beginAccessingResources()
+            guard let fontURL = request.bundle.url(forResource: psName.fileName, withExtension: psName.fileExt) else {
                 throw NSError(domain: "FontDetailView", code: 404, userInfo: [
                     NSLocalizedDescriptionKey: "字体文件未找到"
                 ])
@@ -172,6 +175,7 @@ struct FontDetailView: View {
             // 安装字体
             try await FontManager.shared.installFont(from: fontURL)
             fontStates[psName.fileName] = .installed
+            request.endAccessingResources()
         } catch {
             fontStates[psName.fileName] = .error("安装失败: \(error.localizedDescription)")
             
