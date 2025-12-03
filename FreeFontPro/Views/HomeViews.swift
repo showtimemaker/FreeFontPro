@@ -13,7 +13,6 @@ struct HomeView: View {
     @AppStorage("fontDataVersion") private var currentVersion: String = ""
     @AppStorage("previewText") private var inputText: String = "欢迎使用FreeFont Pro"
     @State var showInputSheet: Bool = false
-    @State private var showSettings: Bool = false
     @State private var selectedFont: FreeFontModel? = nil
     @State private var svgHeight: CGFloat = 60
     @State private var selectedCategory: String = "all"
@@ -62,8 +61,8 @@ struct HomeView: View {
             }
             .toolbar {
                 ToolbarItem (placement: .navigationBarLeading){
-                    Button {
-                        showSettings = true
+                    NavigationLink {
+                        SettingsView()
                     } label: {
                         Image(systemName: "gearshape")
                     }
@@ -257,45 +256,8 @@ struct HomeView: View {
             .fullScreenCover(isPresented: $showInputSheet) {
                 PreviewTextInputView(inputText: $inputText)
             }
-            .sheet(isPresented: $showSettings) {
-                SettingsView()
-            }
-            // .task {
-            //     await loadData()
-            // }
         }
     }
-    
-    // private func loadData() async {
-    //     do {
-    //         let remoteVersion = try await FreeFontService.shared.fetchVersion()
-    //         if remoteVersion != currentVersion {
-    //             let fetchedFonts = try await FreeFontService.shared.fetchFonts()
-                
-    //             // Clear existing data if needed, or update logic. 
-    //             // Here we update existing or insert new ones.
-    //             for fontResponse in fetchedFonts {
-    //                 let id = fontResponse.id
-    //                 let descriptor = FetchDescriptor<FreeFontData>(predicate: #Predicate { $0.id == id })
-                    
-    //                 // Delete existing to ensure update
-    //                 if let existing = try modelContext.fetch(descriptor).first {
-    //                     modelContext.delete(existing)
-    //                 }
-                    
-    //                 let fontData = fontResponse.toFreeFontData()
-    //                 modelContext.insert(fontData)
-    //             }
-                
-    //             currentVersion = remoteVersion
-    //             print("Updated fonts to version: \(remoteVersion)")
-    //         } else {
-    //             print("Fonts are up to date (version: \(currentVersion))")
-    //         }
-    //     } catch {
-    //         print("Failed to fetch fonts or version: \(error)")
-    //     }
-    // }
 }
 
 
