@@ -216,19 +216,3 @@ enum LanguageDetector {
         }
     }
 }
-
-
-// print(LanguageDetector.detectLanguageCodes(for: "Hello, world!你好")) // ["en", "zh-Hans"]
-// print(LanguageDetector.detectPrimaryLanguageCode(for: "Hello, world!你好")) // "zh-Hans"
-// print(LanguageDetector.detectPrimaryLanguageCode(for: "こんにちは Hello")) // "ja"
-// print(LanguageDetector.detectPrimaryLanguageCode(for: "Hello World")) // "en"
-// print(LanguageDetector.detectPrimaryLanguageCode(for: "Hello, world!你好こんにちは")) // "zh-Hans"
-// print(LanguageDetector.detectPrimaryLanguageCode(for: "Hello, world!こんにちは你好")) // "ja"
-// print(LanguageDetector.detectPrimaryLanguageCode(for: "")) // "en"
-// print(LanguageDetector.detectLanguageCodes(for: "")) // ["en"]
-// // 繁体中文测试
-// print(LanguageDetector.detectPrimaryLanguageCode(for: "繁體中文測試")) // "zh-Hant"
-// print(LanguageDetector.detectLanguageCodes(for: "這是繁體中文")) // ["zh-Hant"]
-// // 韩文测试  
-// print(LanguageDetector.detectPrimaryLanguageCode(for: "안녕하세요")) // "ko"
-// print(LanguageDetector.detectLanguageCodes(for: "Hello 안녕하세요")) // ["en", "ko"]
