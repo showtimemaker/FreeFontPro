@@ -4,10 +4,11 @@
  * 
  * 遍历 FreeFontPro/Resources/FreeFont 目录下的所有字体文件，
  * 为每个字体生成 SVG 矢量预览图片，保存在与字体文件相同的目录中。
+ * 并将生成的 SVG 文件注册为 ODR (On-Demand Resources) 资源。
  */
 
 import { walk } from "jsr:@std/fs";
-import { dirname, join, basename, extname } from "jsr:@std/path";
+import { dirname, join, basename, extname, relative } from "jsr:@std/path";
 import { renderTextToSVG } from "./freefont.ts";
 
 /**
@@ -114,6 +115,62 @@ async function generatePreviewImage(
 }
 
 /**
+ * 更新 project.pbxproj 文件，添加 ODR 资源标签
+ */
+async function updateProjectPbxproj(
+  projectPath: string,
+  odrFiles: Array<{ relativePath: string; tag: string }>,
+) {
+  console.log(`\n📝 更新 project.pbxproj 文件...`);
+  
+  try {
+    // 读取 project.pbxproj 文件
+    const pbxprojContent = await Deno.readTextFile(projectPath);
+    
+    // 构建 assetTagsByRelativePath 内容（包括字体文件和 SVG）
+    const assetTagsLines = odrFiles
+      .map(({ relativePath, tag }) => `\t\t\t\t${relativePath} = (${tag}, );`)
+      .join("\n");
+    
+    // 构建 KnownAssetTags 内容（去重）
+    const uniqueTags = [...new Set(odrFiles.map(({ tag }) => tag))];
+    const knownAssetTags = uniqueTags
+      .map((tag) => `\t\t\t\t\t${tag},`)
+      .join("\n");
+    
+    // 查找并替换 assetTagsByRelativePath 部分
+    const assetTagsRegex = /(assetTagsByRelativePath = \{)\s*([\s\S]*?)(\s*\};)/;
+    let updatedContent = pbxprojContent;
+    
+    if (assetTagsRegex.test(pbxprojContent)) {
+      // 替换现有的 assetTagsByRelativePath（不添加额外的空行）
+      updatedContent = pbxprojContent.replace(
+        assetTagsRegex,
+        `$1\n${assetTagsLines}$3`,
+      );
+    }
+    
+    // 查找并替换 KnownAssetTags 部分
+    const knownAssetTagsRegex = /(KnownAssetTags = \()\s*([\s\S]*?)(\s*\);)/;
+    
+    if (knownAssetTagsRegex.test(updatedContent)) {
+      // 替换现有的 KnownAssetTags（不添加额外的空行）
+      updatedContent = updatedContent.replace(
+        knownAssetTagsRegex,
+        `$1\n${knownAssetTags}$3`,
+      );
+    }
+    
+    // 写回文件
+    await Deno.writeTextFile(projectPath, updatedContent);
+    
+    console.log(`✅ 已更新 project.pbxproj，添加了 ${odrFiles.length} 个文件，${uniqueTags.length} 个 ODR 资源标签`);
+  } catch (e) {
+    console.log(`❌ 更新 project.pbxproj 失败: ${e}`);
+  }
+}
+
+/**
  * 主函数
  */
 async function main() {
@@ -149,8 +206,12 @@ async function main() {
   // 统计信息
   let successCount = 0;
   let failedCount = 0;
+  const odrFiles: Array<{ relativePath: string; tag: string }> = [];
   
-  // 为每个字体生成预览图片
+  // FreeFontPro 目录路径（用于计算相对路径）
+  const freeFontProDir = join(projectDir, "FreeFontPro");
+  
+  // 为每个字体生成预览图片，并收集字体文件和 SVG 文件用于 ODR
   for (let i = 0; i < fontFiles.length; i++) {
     const fontPath = fontFiles[i];
     const fontName = basename(fontPath);
@@ -160,6 +221,11 @@ async function main() {
     const previewConfigs = getPreviewTexts(fontName);
     
     console.log(`[${i + 1}/${fontFiles.length}] 处理: ${fontName}`);
+    
+    // 添加字体文件本身到 ODR 列表
+    const fontRelativePath = relative(freeFontProDir, fontPath);
+    const fontTag = basename(fontPath); // 使用完整文件名作为 tag
+    odrFiles.push({ relativePath: fontRelativePath, tag: fontTag });
     
     // 为每种预览文本生成图片
     for (const [suffix, previewText] of previewConfigs) {
@@ -173,6 +239,14 @@ async function main() {
       // 生成预览图片
       if (await generatePreviewImage(fontPath, outputPath, previewText)) {
         successCount++;
+        
+        // 计算相对路径（相对于 FreeFontPro 目录）
+        const relativePath = relative(freeFontProDir, outputPath);
+        
+        // 使用文件名（不含扩展名）作为 tag
+        const tag = basename(outputPath, ".svg");
+        
+        odrFiles.push({ relativePath, tag });
       } else {
         failedCount++;
       }
@@ -184,10 +258,21 @@ async function main() {
   // 打印统计信息
   console.log("=".repeat(60));
   console.log(`✨ 处理完成!`);
-  console.log(`   成功: ${successCount} 个`);
-  console.log(`   失败: ${failedCount} 个`);
-  console.log(`   总计: ${successCount + failedCount} 个`);
+  console.log(`   成功: ${successCount} 个 SVG`);
+  console.log(`   失败: ${failedCount} 个 SVG`);
+  console.log(`   总计: ${successCount + failedCount} 个 SVG`);
+  console.log(`   字体文件: ${fontFiles.length} 个`);
   console.log("=".repeat(60));
+  
+  // 更新 project.pbxproj 文件（包括字体文件和 SVG）
+  if (odrFiles.length > 0) {
+    const pbxprojPath = join(
+      projectDir,
+      "FreeFontPro.xcodeproj",
+      "project.pbxproj",
+    );
+    await updateProjectPbxproj(pbxprojPath, odrFiles);
+  }
 }
 
 // 运行主函数
