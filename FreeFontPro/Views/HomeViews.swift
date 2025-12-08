@@ -57,14 +57,57 @@ struct HomeView: View {
                 FontDetailView(font: font)
             }
             .toolbar {
-                ToolbarItem (placement: .navigationBarLeading){
+                ToolbarItem (placement: .navigationBarTrailing){
                     NavigationLink {
                         SettingsView()
                     } label: {
                         Image(systemName: "gearshape")
                     }
                 }
-                ToolbarItem (placement: .navigationBarTrailing){
+                ToolbarItem (placement: .bottomBar){
+                    Menu {
+                        Button {
+                            selectedLanguage = "all"
+                        } label: {
+                            if selectedLanguage == "all" {
+                                Label("全部", systemImage: "checkmark")
+                            } else {
+                                Text("全部")
+                            }
+                        }
+                        Button {
+                            selectedLanguage = "zh-Hans"
+                        } label: {
+                            if selectedLanguage == "zh-Hans" {
+                                Label("简体中文", systemImage: "checkmark")
+                            } else {
+                                Text("简体中文")
+                            }
+                        }
+                        Button {
+                            selectedLanguage = "zh-Hant"
+                        } label: {
+                            if selectedLanguage == "zh-Hant" {
+                                Label("繁体中文", systemImage: "checkmark")
+                            } else {
+                                Text("繁体中文")
+                            }
+                        }
+                        Button {
+                            selectedLanguage = "ja"
+                        } label: {
+                            if selectedLanguage == "ja" {
+                                Label("日本語", systemImage: "checkmark")
+                            } else {
+                                Text("日本語")
+                            }
+                        }
+                    } label: {
+                        Label("语言", systemImage: "globe")
+                    }
+                }
+                ToolbarSpacer(.flexible, placement: .bottomBar)
+                ToolbarItem (placement: .bottomBar){
                     Menu {
                         Button {
                             selectedCategory = "all"
@@ -169,49 +212,6 @@ struct HomeView: View {
                         Label("风格", systemImage: "scribble.variable")
                     }
                 }
-                ToolbarSpacer(.fixed, placement: .navigationBarTrailing)
-                ToolbarItem (placement: .navigationBarTrailing){
-                    Menu {
-                        Button {
-                            selectedLanguage = "all"
-                        } label: {
-                            if selectedLanguage == "all" {
-                                Label("全部", systemImage: "checkmark")
-                            } else {
-                                Text("全部")
-                            }
-                        }
-                        Button {
-                            selectedLanguage = "zh-Hans"
-                        } label: {
-                            if selectedLanguage == "zh-Hans" {
-                                Label("简体中文", systemImage: "checkmark")
-                            } else {
-                                Text("简体中文")
-                            }
-                        }
-                        Button {
-                            selectedLanguage = "zh-Hant"
-                        } label: {
-                            if selectedLanguage == "zh-Hant" {
-                                Label("繁体中文", systemImage: "checkmark")
-                            } else {
-                                Text("繁体中文")
-                            }
-                        }
-                        Button {
-                            selectedLanguage = "ja"
-                        } label: {
-                            if selectedLanguage == "ja" {
-                                Label("日本語", systemImage: "checkmark")
-                            } else {
-                                Text("日本語")
-                            }
-                        }
-                    } label: {
-                        Label("语言", systemImage: "globe")
-                    }
-                }
                 ToolbarItem (placement: .bottomBar) {
                     Menu{
                         Button {
@@ -233,8 +233,6 @@ struct HomeView: View {
                         Image(systemName: "textformat.size")
                     }
                 }
-                
-                ToolbarSpacer(.fixed, placement: .bottomBar)
                 
                 // ToolbarItem (placement: .bottomBar) {
                 //     TextField("预览文本", text: $inputText)
