@@ -17,7 +17,7 @@ struct FontPreviewCard: View {
     
     @State private var svgUrl: URL?
     @State private var isLoading = true
-    @State private var loadError: Error?
+    @State private var retryCount = 0
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
@@ -36,24 +36,27 @@ struct FontPreviewCard: View {
                         } placeholder: {
                             ProgressView()
                                 .progressViewStyle(CircularProgressViewStyle())
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         .onFailure { error in
                             print("SVG 加载失败: \(error.localizedDescription)")
-                            loadError = error
+                            // 3 秒后重试
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                                retryCount += 1
+                            }
                         }
+                        .id(retryCount)
                         .transition(.fade(duration: 0.5))
                         .scaledToFit()
                     } else if isLoading {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle())
-                    } else if loadError != nil {
-                        Text("加载失败")
-                            .foregroundColor(.gray)
-                            .font(.caption)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
             }
             .frame(height: svgHeight)
+            .background(Color(uiColor: .systemBackground))
             Text(title)
                 .lineLimit(1)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -68,12 +71,16 @@ struct FontPreviewCard: View {
         .task {
             await loadODRResource()
         }
+        .onChange(of: retryCount) { _ in
+            Task {
+                await loadODRResource()
+            }
+        }
     }
     
     /// 加载 ODR 资源
     private func loadODRResource() async {
         isLoading = true
-        loadError = nil
         
         let request = NSBundleResourceRequest(tags: [previewTag])
         
@@ -86,15 +93,21 @@ struct FontPreviewCard: View {
                 svgUrl = resourceURL
             } else {
                 print("未找到 ODR 资源: \(previewTag)")
-                loadError = NSError(domain: "FontPreviewCard", code: 404, userInfo: [NSLocalizedDescriptionKey: "资源未找到"])
+                // 3 秒后重试
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                    retryCount += 1
+                }
             }
             
             isLoading = false
             
         } catch {
             print("加载 ODR 资源失败: \(error.localizedDescription)")
-            loadError = error
             isLoading = false
+            // 3 秒后重试
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                retryCount += 1
+            }
         }
     }
 }
