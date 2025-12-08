@@ -236,22 +236,19 @@ struct HomeView: View {
                 
                 ToolbarSpacer(.fixed, placement: .bottomBar)
                 
-                ToolbarItem (placement: .bottomBar) {
-                    TextField("预览文本", text: $inputText)
-                        .disabled(true)
-                        .padding(.horizontal, 16)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            var transaction = Transaction()
-                            transaction.disablesAnimations = true
-                            withTransaction(transaction) {
-                                showInputSheet = true
-                            }
-                        }
-                }
-            }
-            .fullScreenCover(isPresented: $showInputSheet) {
-                PreviewTextInputView(inputText: $inputText)
+                // ToolbarItem (placement: .bottomBar) {
+                //     TextField("预览文本", text: $inputText)
+                //         .disabled(true)
+                //         .padding(.horizontal, 16)
+                //         .contentShape(Rectangle())
+                //         .onTapGesture {
+                //             var transaction = Transaction()
+                //             transaction.disablesAnimations = true
+                //             withTransaction(transaction) {
+                //                 showInputSheet = true
+                //             }
+                //         }
+                // }
             }
         }
     }
