@@ -21,10 +21,13 @@ struct FreeFontModel: Identifiable, Hashable {
         let postscriptName: String
         let fileName: String
         let fileExt: String
-        let fileTag = "\(fileName).\(fileExt)"
         let version: String
         let previewTag: String
         let previewEnTag: String
         let previewNumTag: String
+        
+        var fileTag: String {
+            "\(fileName).\(fileExt)"
+        }
     }
 }

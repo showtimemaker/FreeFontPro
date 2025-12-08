@@ -32,10 +32,7 @@ struct HomeView: View {
         NavigationStack {
             List(filteredFonts) { font in
                 FontPreviewCard(
-                    svgUrl: FreeFontService.shared.getFontPreviewUrl(
-                        postscriptName: font.postscriptNames.first?.postscriptName ?? "",
-                        inputText: inputText
-                    ),
+                    previewTag: font.postscriptNames.first?.previewTag ?? "",
                     svgHeight: svgHeight,
                     title: font.names[0],
                     onTap: {
