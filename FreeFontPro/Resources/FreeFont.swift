@@ -50,5 +50,32 @@ let FreeFont: [FreeFontModel] = [
               previewNumTag: "ZLabsBitmap_12px_JP_preview_num"
             )
         ]
+    ),
+    FreeFontModel(
+        author: "42dot",
+        categories: ["korean", "latin", "menu"],
+        languages: ["en"],
+        names: ["42dot Sans"],
+        descriptions: [
+          "42dot Sans is the corporate typeface for 42dot, designed to encapsulate the brand’s core identity and philosophy. With its harmonious balance of straight lines that represent cutting-edge technology and gentle curves that exude user-friendliness, 42dot Sans reflects the perfect synergy between precision and approachability.",
+        ],
+        weights: ["Regular"],
+        license: "SIL Open Font License 1.1",
+        licenseUrl: "https://github.com/42dot/42dot-Sans/LICENSE-OFL",
+        website: "https://github.com/42dot/42dot-Sans",
+        copyright: "Copyright (c) 2023-2025, Astro_2539",
+        postscriptNames: [
+            .init(
+              language: "en",
+              weight: "Regular",
+              postscriptName: "42dotSans-Light",
+              fileName: "42dotSans[wght]",
+              fileExt: "ttf",
+              version: "Version 0.98",
+              previewTag: "42dotSans[wght]_preview_en",
+              previewEnTag: "42dotSans[wght]_preview_en",
+              previewNumTag: "42dotSans[wght]_preview_num"
+            ),
+        ]
     )
 ]

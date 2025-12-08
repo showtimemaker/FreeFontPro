@@ -38,17 +38,22 @@
 		C84B0EAB2EDC8F1C00896149 /* Exceptions for "FreeFontPro" folder in "FreeFontPro" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			assetTagsByRelativePath = {
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_HC.ttf = (ZLabsBitmap_12px_HC.ttf, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_HC_preview_tc.svg = (ZLabsBitmap_12px_HC_preview_tc, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_HC_preview_en.svg = (ZLabsBitmap_12px_HC_preview_en, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_HC_preview_num.svg = (ZLabsBitmap_12px_HC_preview_num, );
+				"Resources/FreeFont/42dotsans/42dotSans[wght].ttf" = ("42dotSans[wght].ttf", );
+				"Resources/FreeFont/42dotsans/42dotSans[wght]_preview_en.svg" = ("42dotSans[wght]_preview_en", );
+				"Resources/FreeFont/42dotsans/42dotSans[wght]_preview_num.svg" = ("42dotSans[wght]_preview_num", );
+				Resources/FreeFont/42dotsans/OFL.txt = (42dotsans_OFL.txt, );
+				Resources/FreeFont/ZLabsBitmap_12px/OFL.txt = (ZLabsBitmap_12px_OFL.txt, );
 				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_CN.ttf = (ZLabsBitmap_12px_CN.ttf, );
 				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_CN_preview_cn.svg = (ZLabsBitmap_12px_CN_preview_cn, );
 				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_CN_preview_en.svg = (ZLabsBitmap_12px_CN_preview_en, );
 				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_CN_preview_num.svg = (ZLabsBitmap_12px_CN_preview_num, );
+				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_HC.ttf = (ZLabsBitmap_12px_HC.ttf, );
+				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_HC_preview_en.svg = (ZLabsBitmap_12px_HC_preview_en, );
+				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_HC_preview_num.svg = (ZLabsBitmap_12px_HC_preview_num, );
+				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_HC_preview_tc.svg = (ZLabsBitmap_12px_HC_preview_tc, );
 				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_JP.ttf = (ZLabsBitmap_12px_JP.ttf, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_JP_preview_jp.svg = (ZLabsBitmap_12px_JP_preview_jp, );
 				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_JP_preview_en.svg = (ZLabsBitmap_12px_JP_preview_en, );
+				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_JP_preview_jp.svg = (ZLabsBitmap_12px_JP_preview_jp, );
 				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_JP_preview_num.svg = (ZLabsBitmap_12px_JP_preview_num, );
 			};
 			target = C81578B72ED9142200A3C815 /* FreeFontPro */;
@@ -204,18 +209,23 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				KnownAssetTags = (
-					ZLabsBitmap_12px_HC.ttf,
-					ZLabsBitmap_12px_HC_preview_tc,
-					ZLabsBitmap_12px_HC_preview_en,
-					ZLabsBitmap_12px_HC_preview_num,
+					"42dotSans[wght].ttf",
+					"42dotSans[wght]_preview_en",
+					"42dotSans[wght]_preview_num",
+					42dotsans_OFL.txt,
 					ZLabsBitmap_12px_CN.ttf,
 					ZLabsBitmap_12px_CN_preview_cn,
 					ZLabsBitmap_12px_CN_preview_en,
 					ZLabsBitmap_12px_CN_preview_num,
+					ZLabsBitmap_12px_HC.ttf,
+					ZLabsBitmap_12px_HC_preview_en,
+					ZLabsBitmap_12px_HC_preview_num,
+					ZLabsBitmap_12px_HC_preview_tc,
 					ZLabsBitmap_12px_JP.ttf,
-					ZLabsBitmap_12px_JP_preview_jp,
 					ZLabsBitmap_12px_JP_preview_en,
+					ZLabsBitmap_12px_JP_preview_jp,
 					ZLabsBitmap_12px_JP_preview_num,
+					ZLabsBitmap_12px_OFL.txt,
 				);
 				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 2600;

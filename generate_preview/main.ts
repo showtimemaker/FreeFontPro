@@ -115,6 +115,22 @@ async function generatePreviewImage(
 }
 
 /**
+ * 转义路径中的特殊字符，使其在 Xcode project.pbxproj 中安全使用
+ */
+function escapeForPbxproj(str: string): string {
+  // 如果包含空格或特殊字符，需要用引号包裹
+  const needsQuotes = /[\s\[\](){}<>"']/.test(str);
+  
+  if (needsQuotes) {
+    // 转义内部的引号和反斜杠
+    const escaped = str.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    return `"${escaped}"`;
+  }
+  
+  return str;
+}
+
+/**
  * 更新 project.pbxproj 文件，添加 ODR 资源标签
  */
 async function updateProjectPbxproj(
@@ -129,13 +145,20 @@ async function updateProjectPbxproj(
     
     // 构建 assetTagsByRelativePath 内容（包括字体文件和 SVG）
     const assetTagsLines = odrFiles
-      .map(({ relativePath, tag }) => `\t\t\t\t${relativePath} = (${tag}, );`)
+      .map(({ relativePath, tag }) => {
+        const escapedPath = escapeForPbxproj(relativePath);
+        const escapedTag = escapeForPbxproj(tag);
+        return `\t\t\t\t${escapedPath} = (${escapedTag}, );`;
+      })
       .join("\n");
     
     // 构建 KnownAssetTags 内容（去重）
     const uniqueTags = [...new Set(odrFiles.map(({ tag }) => tag))];
     const knownAssetTags = uniqueTags
-      .map((tag) => `\t\t\t\t\t${tag},`)
+      .map((tag) => {
+        const escapedTag = escapeForPbxproj(tag);
+        return `\t\t\t\t\t${escapedTag},`;
+      })
       .join("\n");
     
     // 查找并替换 assetTagsByRelativePath 部分
@@ -216,6 +239,7 @@ async function main() {
     const fontPath = fontFiles[i];
     const fontName = basename(fontPath);
     const fontDir = dirname(fontPath);
+    const folderName = basename(fontDir); // 获取文件夹名称
     
     // 获取所有预览文本配置
     const previewConfigs = getPreviewTexts(fontName);
@@ -226,6 +250,23 @@ async function main() {
     const fontRelativePath = relative(freeFontProDir, fontPath);
     const fontTag = basename(fontPath); // 使用完整文件名作为 tag
     odrFiles.push({ relativePath: fontRelativePath, tag: fontTag });
+    
+    // 检查并添加 OFL.txt 或 ofl.txt 文件
+    for (const oflFileName of ["OFL.txt", "ofl.txt"]) {
+      const oflPath = join(fontDir, oflFileName);
+      try {
+        const stat = await Deno.stat(oflPath);
+        if (stat.isFile) {
+          const oflRelativePath = relative(freeFontProDir, oflPath);
+          const oflTag = `${folderName}_${oflFileName}`; // tag 格式: 文件夹名称_OFL.txt
+          odrFiles.push({ relativePath: oflRelativePath, tag: oflTag });
+          console.log(`  📄 找到许可证文件: ${oflFileName}`);
+          break; // 找到一个就跳出循环
+        }
+      } catch {
+        // 文件不存在，继续检查下一个
+      }
+    }
     
     // 为每种预览文本生成图片
     for (const [suffix, previewText] of previewConfigs) {
