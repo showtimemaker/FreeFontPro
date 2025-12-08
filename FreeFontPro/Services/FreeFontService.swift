@@ -14,6 +14,24 @@ class FreeFontService {
         return "https://freefont.showtimemaker.com/api/freefont/\(postscriptName)?text=\(inputText)"
     }
 
+    /// 获取 ODR 预览图片 URL
+    /// - Parameter fileName: 字体文件名（不含扩展名）
+    /// - Returns: 预览图片 URL，如果不存在则返回 nil
+    func getODRPreviewImageURL(fileName: String) async -> URL? {
+        let previewTag = "\(fileName)_preview.svg"
+        let request = NSBundleResourceRequest(tags: [previewTag])
+        
+        // 检查资源是否可用
+        let isAvailable = await request.conditionallyBeginAccessingResources()
+        
+        if isAvailable {
+            let url = request.bundle.url(forResource: "\(fileName)_preview", withExtension: "svg")
+            return url
+        }
+        
+        return nil
+    }
+
 
     func  checkODRAvailability(tag: String) async ->  Bool {
         let request = NSBundleResourceRequest(tags: [tag])

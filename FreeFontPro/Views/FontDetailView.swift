@@ -4,7 +4,6 @@ import SDWebImageSwiftUI
 
 struct FontDetailView: View {
     let font: FreeFontModel
-    @AppStorage("previewText") private var previewText: String = "欢迎使用FreeFont Pro"
     @State private var selectedWeight: String = ""
     @State private var selectedLanguage: String = ""
     @State private var fontStates: [String: FontState] = [:]
@@ -22,15 +21,6 @@ struct FontDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                
-                // 字体预览区域
-                if let firstVariant = font.postscriptNames.first {
-                    FontPreviewSection(
-                        postscriptName: firstVariant.postscriptName,
-                        previewText: previewText
-                    )
-                }
-                
                 // 可下载的字体变体
                 if !font.postscriptNames.isEmpty {
                     InfoSection(title: "可用字体") {
@@ -186,52 +176,7 @@ struct FontDetailView: View {
     }
 }
 
-// MARK: - 字体预览区域
-struct FontPreviewSection: View {
-    let postscriptName: String
-    let previewText: String
-    @State private var retryCount: Int = 0
-    @Environment(\.colorScheme) private var colorScheme
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("预览")
-                .font(.headline)
-                .foregroundColor(.primary)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                WebImage(url: URL(string: FreeFontService.shared.getFontPreviewUrl(
-                    postscriptName: postscriptName,
-                    inputText: previewText
-                ))) { image in
-                    if colorScheme == .dark {
-                        image.resizable()
-                            .colorInvert()
-                    } else {
-                        image.resizable()
-                    }
-                } placeholder: {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 80)
-                }
-                .onFailure { error in
-                    print("SVG 加载失败: \(error.localizedDescription)")
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                        retryCount += 1
-                    }
-                }
-                .id(retryCount)
-                .transition(.fade(duration: 0.5))
-                .scaledToFit()
-            }
-            .frame(height: 80)
-            .background(Color.gray.opacity(0.1))
-            .cornerRadius(8)
-        }
-    }
-}
+// 移除不需要的扩展
 
 // MARK: - 信息区域容器
 struct InfoSection<Content: View>: View {
