@@ -1,0 +1,21 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- 可选的参考圆（可删） -->
+  <circle cx="512" cy="512" r="64" fill="#000000" stroke-width="2"/>
+  <!-- 12 个 A，A 的顶端朝向圆心 -->
+  <g font-size="320" text-anchor="middle" dominant-baseline="middle">
+    <text x="512.000" y="152.000" transform="rotate(180 512 152)" fill="oklch(62% 0.25 29.23)" font-family="42dotSans-Light">A</text>
+    <text x="692.000" y="200.231" transform="rotate(210 692 200.231)" fill="oklch(62% 0.25 49.23)" font-family="Roboto">A</text>
+    <text x="823.769" y="332.000" transform="rotate(240 823.769 332)" fill="oklch(62% 0.25 69.23)" font-family="Z-Labs-Bitmap-12px-CN-Regular">A</text>
+    <text x="872.000" y="512.000" transform="rotate(-90 872 512)" fill="oklch(62% 0.25 108.97)">A</text>
+    <text x="823.769" y="692.000" transform="rotate(-60 823.769 692)" fill="oklch(62% 0.25 148.71)">A</text>
+    <text x="692.000" y="823.769" transform="rotate(-30 692 823.769)" fill="oklch(62% 0.25 178.71)">A</text>
+    <text x="512.000" y="872.000" transform="rotate(0 512 872)" fill="oklch(62% 0.25 208.71)">A</text>
+    <text x="332.000" y="823.769" transform="rotate(30 332 823.769)" fill="oklch(62% 0.25 238.71)">A</text>
+    <text x="200.231" y="692.000" transform="rotate(60 200.231 692)" fill="oklch(62% 0.25 268.71)">A</text>
+    <text x="152.000" y="512.000" transform="rotate(90 152 512)" fill="oklch(62% 0.25 299.82)">A</text>
+    <text x="200.231" y="332.000" transform="rotate(120 200.231 332)" fill="oklch(62% 0.25 330.93)">A</text>
+    <text x="332.000" y="200.231" transform="rotate(150 332 200.231)" fill="oklch(62% 0.25 350.08)">A</text>
+  </g>
+</svg>
+
