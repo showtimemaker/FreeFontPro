@@ -21,3 +21,16 @@ FreeFont Pro是一款 iOS 字体浏览、预览与安装工具，专注于收集
 - 字体文件：按需资源 ODR（font_file）
   - 下载：激励广告
   - 安装：激励广告
+
+## Font命名表
+| OpenType 命名 | 大致数值 | 中文 |
+| ----------- | ---- | -- |
+| Thin        | 100  | 极细 |
+| ExtraLight  | 200  | 特细 |
+| Light       | 300  | 细  |
+| Regular     | 400  | 常规 |
+| Medium      | 500  | 中等 |
+| SemiBold    | 600  | 半粗 |
+| Bold        | 700  | 粗  |
+| ExtraBold   | 800  | 特粗 |
+| Black       | 900  | 黑体 |
