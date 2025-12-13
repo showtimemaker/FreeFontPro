@@ -8,7 +8,7 @@ import SDWebImageSwiftUI
 struct FontPreviewCard: View {
     let previewUrl: URL?
     /// SVG 显示高度
-    let svgHeight: CGFloat
+    let svgHeight: CGFloat = 60
     /// 字体名称
     let title: String
     /// 点击回调

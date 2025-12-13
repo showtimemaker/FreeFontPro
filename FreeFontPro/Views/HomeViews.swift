@@ -11,7 +11,6 @@ import SwiftData
 struct HomeView: View {
     private var fonts = FreeFont
     @State private var selectedFont: FreeFontModel? = nil
-    @State private var svgHeight: CGFloat = 60
     @State private var selectedCategory: String = "all"
     @State private var selectedLanguage: String = "all"
     @Environment(\.colorScheme) private var colorScheme
@@ -32,7 +31,6 @@ struct HomeView: View {
                     ForEach(filteredFonts) { font in
                         FontPreviewCard(
                             previewUrl: Bundle.main.url(forResource: font.preview.name, withExtension: font.preview.ext),
-                            svgHeight: svgHeight,
                             title: font.names[0],
                             onTap: {
                                 selectedFont = font
@@ -205,21 +203,6 @@ struct HomeView: View {
                 }
                 ToolbarItem (placement: .bottomBar) {
                     Menu{
-                        Button {
-                            svgHeight = 60
-                        } label: {
-                            Label("小", systemImage: "textformat.size.smaller")
-                        }
-                        Button {
-                            svgHeight = 80
-                        } label: {
-                            Label("中", systemImage: "textformat.size")
-                        }
-                        Button {
-                            svgHeight = 100
-                        } label: {
-                            Label("大", systemImage: "textformat.size.larger")
-                        }
                     } label: {
                         Image(systemName: "face.smiling")
                     }
