@@ -17,25 +17,16 @@ struct FreeFontModel: Identifiable, Hashable {
     let licenseUrl: String
     let website: String
     let copyright: String
+    let version: String
     let licenseTag: String
     let preview: FileNE
     let postscriptNames: [PostscriptName]
     
-    struct PostscriptName: Identifiable, Hashable {
-        let id = UUID()
-        let language: String
-        let weight: String
+    struct PostscriptName: Hashable {
         let postscriptName: String
+        let weight: String
+        let style: String
         let fileName: String
         let fileExt: String
-        let version: String
-        let previewTag: String
-        let previewEnTag: String
-        let previewNumTag: String
-
-        var fileTag: String {
-            "\(fileName).\(fileExt)"
-        }
     }
-
 }

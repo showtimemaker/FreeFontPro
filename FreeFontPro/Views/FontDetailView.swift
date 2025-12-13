@@ -20,30 +20,35 @@ struct FontDetailView: View {
                     Text("版本")
                         .font(.system(size: 12))
                         .bold()
-                    Text("version")
+                    Text(font.version)
                         .font(.system(size: 14))
                     Text("版权")
                         .font(.system(size: 12))
                         .bold()
                     Text(font.copyright)
                         .font(.system(size: 14))
-                    Text("Licence")
+                    Text("许可协议")
                         .font(.system(size: 12))
                         .bold()
                     Text(font.license)
                         .font(.system(size: 14))
                 }
             }
-            Section ("字体样式"){
-                Text("字体样式1")
-                Text("字体样式2")
+            Section ("\(font.postscriptNames.count)种样式"){
+                ForEach(font.postscriptNames, id: \.postscriptName) { ps in
+                    NavigationLink(destination: FontItemDetailView(ps: ps)) {
+                        Text(ps.weight)
+                                .font(.system(size: 14))
+                                .bold()
+                    }
+                }
             }
         }
         .navigationTitle(font.names[0])
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    // 下载字体操作
+                    // TODO: 只能购买才能使用
                 } label: {
                     Image(systemName: "arrow.down")
                 }  

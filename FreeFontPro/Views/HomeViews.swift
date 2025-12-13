@@ -48,7 +48,7 @@ struct HomeView: View {
                 FontDetailView(font: font)
             }
             .toolbar {
-                ToolbarItem (placement: .navigationBarTrailing){
+                ToolbarItem (placement: .navigationBarLeading){
                     NavigationLink {
                         SettingsView()
                     } label: {
