@@ -10,9 +10,6 @@ import SwiftData
 
 struct HomeView: View {
     private var fonts = FreeFont
-    @AppStorage("fontDataVersion") private var currentVersion: String = ""
-    @AppStorage("previewText") private var inputText: String = "欢迎使用FreeFont Pro"
-    @State var showInputSheet: Bool = false
     @State private var selectedFont: FreeFontModel? = nil
     @State private var svgHeight: CGFloat = 60
     @State private var selectedCategory: String = "all"
@@ -30,28 +27,22 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-            List(filteredFonts) { font in
-                FontPreviewCard(
-                    previewTag: font.postscriptNames.first?.previewTag ?? "",
-                    svgHeight: svgHeight,
-                    title: font.names[0],
-                    onTap: {
-                        selectedFont = font
+            ScrollView {
+                LazyVStack(spacing: 8) {
+                    ForEach(filteredFonts) { font in
+                        FontPreviewCard(
+                            previewUrl: Bundle.main.url(forResource: font.preview.name, withExtension: font.preview.ext),
+                            svgHeight: svgHeight,
+                            title: font.names[0],
+                            onTap: {
+                                selectedFont = font
+                            }
+                        )
+                        .glassEffect(in: .rect(cornerRadius: 32.0))
+                        .padding(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
                     }
-                )
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(Color(uiColor: colorScheme == .dark ? .secondarySystemBackground : .systemBackground))
-                            .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 4)
-                    )
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 4)
+                }
             }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
             .background(Color(.systemGroupedBackground))
             .navigationDestination(item: $selectedFont) { font in
                 FontDetailView(font: font)
@@ -230,23 +221,10 @@ struct HomeView: View {
                             Label("大", systemImage: "textformat.size.larger")
                         }
                     } label: {
-                        Image(systemName: "textformat.size")
+                        Image(systemName: "face.smiling")
                     }
                 }
                 
-                // ToolbarItem (placement: .bottomBar) {
-                //     TextField("预览文本", text: $inputText)
-                //         .disabled(true)
-                //         .padding(.horizontal, 16)
-                //         .contentShape(Rectangle())
-                //         .onTapGesture {
-                //             var transaction = Transaction()
-                //             transaction.disablesAnimations = true
-                //             withTransaction(transaction) {
-                //                 showInputSheet = true
-                //             }
-                //         }
-                // }
             }
         }
     }
