@@ -30,8 +30,11 @@ let FreeFont: [FreeFontModel] = [
               postscriptName: "Z-Labs-Bitmap-12px-CN-Regular",
               weight: "Regular",
               style: "normal",
-              fileName: "xxx",
-              fileExt: "ttf",
+              file: .init(
+                tag: "ZLabsBitmap_12px_CN",
+                name: "ZLabsBitmap_12px_CN",
+                ext: "ttf"
+              ),
             ),
         ]
     ),
@@ -65,8 +68,11 @@ let FreeFont: [FreeFontModel] = [
               postscriptName: "Z-Labs-Bitmap-12px-CN-Regular",
               weight: "Regular",
               style: "normal",
-              fileName: "xxx",
-              fileExt: "ttf",
+              file: .init(
+                tag: "ZLabsBitmap_12px_HC",
+                name: "ZLabsBitmap_12px_HC",
+                ext: "ttf"
+              ),
             ),
         ]
     ),
@@ -100,8 +106,11 @@ let FreeFont: [FreeFontModel] = [
               postscriptName: "Z-Labs-Bitmap-12px-CN-Regular",
               weight: "Regular",
               style: "normal",
-              fileName: "xxx",
-              fileExt: "ttf",
+              file: .init(
+                tag: "ZLabsBitmap_12px_JP",
+                name: "ZLabsBitmap_12px_JP",
+                ext: "ttf"
+              ),
             ),
         ]
     ),

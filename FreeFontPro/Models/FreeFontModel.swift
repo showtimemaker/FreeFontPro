@@ -22,8 +22,7 @@ struct FreeFontModel: Identifiable, Hashable {
         let postscriptName: String
         let weight: String
         let style: String
-        let fileName: String
-        let fileExt: String
+        let file: ODRFile
     }
 
     struct LocalFile: Hashable {
