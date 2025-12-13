@@ -17,8 +17,8 @@ let FreeFont: [FreeFontModel] = [
         copyright: "Copyright (c) 2023-2025, Astro_2539 (https://github.com/Astro-2539).",
         version: "Version 0.98",
         licenseFile: .init(
-          tag: "ZLabsBitmap_12px_LICENSE",
-          name: "ZLabsBitmap_12px_LICENSE",
+          tag: "FontPreview.ZLabsBitmap_12px",
+          name: "LICENSE",
           ext: "txt",
         ),
         preview: .init(
@@ -55,8 +55,8 @@ let FreeFont: [FreeFontModel] = [
         copyright: "Copyright (c) 2023-2025, Astro_2539 (https://github.com/Astro-2539).",
           version: "Version 1.0_HC",
         licenseFile: .init(
-          tag: "ZLabsBitmap_12px_LICENSE",
-          name: "ZLabsBitmap_12px_LICENSE",
+          tag: "FontPreview.ZLabsBitmap_12px",
+          name: "LICENSE",
           ext: "txt",
         ),
         preview: .init(
@@ -93,8 +93,8 @@ let FreeFont: [FreeFontModel] = [
         copyright: "Copyright (c) 2023-2025, Astro_2539 (https://github.com/Astro-2539).",
         version: "Version 1.01_JP",
         licenseFile: .init(
-          tag: "ZLabsBitmap_12px_LICENSE",
-          name: "ZLabsBitmap_12px_LICENSE",
+          tag: "FontPreview.ZLabsBitmap_12px",
+          name: "LICENSE",
           ext: "txt",
         ),
         preview: .init(

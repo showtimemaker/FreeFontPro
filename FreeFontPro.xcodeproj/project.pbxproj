@@ -35,13 +35,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		C8E5060A2EED959F00F7BCE9 /* Exceptions for "FreeFontPro" folder in "FreeFontPro" target */ = {
+		C8E506202EEDB64F00F7BCE9 /* Exceptions for "FreeFontPro" folder in "FreeFontPro" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			assetTagsByRelativePath = {
-				Resources/FreeFont/FontFile/ZLabsBitmap_12px_CN/ZLabsBitmap_12px_CN.ttf = (ZLabsBitmap_12px_CN, );
-				Resources/FreeFont/FontFile/ZLabsBitmap_12px_HC/ZLabsBitmap_12px_HC.ttf = (ZLabsBitmap_12px_HC, );
-				Resources/FreeFont/FontFile/ZLabsBitmap_12px_JP/ZLabsBitmap_12px_JP.ttf = (ZLabsBitmap_12px_JP, );
-				Resources/FreeFont/License/ZLabsBitmap_12px/ZLabsBitmap_12px_LICENSE.txt = (ZLabsBitmap_12px_LICENSE, );
+				Resources/FreeFont/ODR/FontFile/ZLabsBitmap_12px_CN/ZLabsBitmap_12px_CN.ttf = (FontFile.ZLabsBitmap_12px_CN, );
+				Resources/FreeFont/ODR/FontFile/ZLabsBitmap_12px_HC/ZLabsBitmap_12px_HC.ttf = (FontFile.ZLabsBitmap_12px_HC, );
+				Resources/FreeFont/ODR/FontFile/ZLabsBitmap_12px_JP/ZLabsBitmap_12px_JP.ttf = (FontFile.ZLabsBitmap_12px_JP, );
+				Resources/FreeFont/ODR/FontPreview/ZLabsBitmap_12px/LICENSE.txt = (FontPreview.ZLabsBitmap_12px, );
 			};
 			target = C81578B72ED9142200A3C815 /* FreeFontPro */;
 		};
@@ -51,7 +51,7 @@
 		C81578BA2ED9142200A3C815 /* FreeFontPro */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				C8E5060A2EED959F00F7BCE9 /* Exceptions for "FreeFontPro" folder in "FreeFontPro" target */,
+				C8E506202EEDB64F00F7BCE9 /* Exceptions for "FreeFontPro" folder in "FreeFontPro" target */,
 			);
 			path = FreeFontPro;
 			sourceTree = "<group>";
@@ -200,6 +200,10 @@
 					"42dotSans[wght]_preview_en",
 					"42dotSans[wght]_preview_num",
 					42dotsans_OFL.txt,
+					FontFile.ZLabsBitmap_12px_CN,
+					FontFile.ZLabsBitmap_12px_HC,
+					FontFile.ZLabsBitmap_12px_JP,
+					FontPreview.ZLabsBitmap_12px,
 					ZLabsBitmap_12px_CN,
 					ZLabsBitmap_12px_CN.ttf,
 					ZLabsBitmap_12px_CN_preview_cn,
