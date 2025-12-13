@@ -32,8 +32,11 @@ class FreeFontService {
         return nil
     }
 
+    func fetchLicenseText(for font: FreeFontModel) async throws -> String {
+        return "License information is currently unavailable."
+    }
 
-    func  checkODRAvailability(tag: String) async ->  Bool {
+    func checkODRAvailability(tag: String) async ->  Bool {
         let request = NSBundleResourceRequest(tags: [tag])
         let isAvailable = await request.conditionallyBeginAccessingResources()
         if isAvailable {

@@ -1,5 +1,10 @@
 import SwiftUI
 
+struct FileNE: Hashable {
+    let name: String
+    let ext: String
+}
+
 struct FreeFontModel: Identifiable, Hashable {
     let id = UUID()
     let author: String
@@ -12,6 +17,8 @@ struct FreeFontModel: Identifiable, Hashable {
     let licenseUrl: String
     let website: String
     let copyright: String
+    let licenseTag: String
+    let preview: FileNE
     let postscriptNames: [PostscriptName]
     
     struct PostscriptName: Identifiable, Hashable {
@@ -25,9 +32,10 @@ struct FreeFontModel: Identifiable, Hashable {
         let previewTag: String
         let previewEnTag: String
         let previewNumTag: String
-        
+
         var fileTag: String {
             "\(fileName).\(fileExt)"
         }
     }
+
 }
