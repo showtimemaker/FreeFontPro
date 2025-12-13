@@ -3,7 +3,7 @@ let FreeFont: [FreeFontModel] = [
         author: "Astro-2539",
         categories: ["pixel", "monospace"],
         languages: ["zh-Hans"],
-        names: ["Z Labs Bitmap 12px", "Z Labs Bitmap 12px", "Z Labs Bitmap 12px", "Z Labs Bitmap 12px"],
+        names: ["Z Labs Bitmap 12px CN"],
         descriptions: [
           "Z Labs Bitmap 12px is a pixel font with a size of 12px, featuring variant glyphs for Mainland China, Hong Kong, and Japan, with monospaced design for Latin characters.",
           "「Z Labs Bitmap 12px」是一款规格为 12px 的像素字体，具有中国大陆、中国香港、日本三种变体字形，西文字体按等宽规格设计。",
@@ -14,9 +14,13 @@ let FreeFont: [FreeFontModel] = [
         license: "SIL Open Font License 1.1",
         licenseUrl: "https://github.com/Astro-2539/ZLabs-Bitmap/blob/main/LICENSE-OFL",
         website: "https://github.com/Astro-2539/ZLabs-Bitmap",
-        copyright: "Copyright (c) 2023-2025, Astro_2539",
+        copyright: "Copyright (c) 2023-2025, Astro_2539 (https://github.com/Astro-2539).",
         version: "Version 0.98",
-        licenseTag: "ZLabsBitmap_12px_OFL.txt",
+        licenseFile: .init(
+          tag: "ZLabsBitmap_12px_LICENSE",
+          name: "ZLabsBitmap_12px_LICENSE",
+          ext: "txt",
+        ),
         preview: .init(
             name: "ZLabsBitmap_12px_CN_preview_cn",
             ext: "svg"
@@ -35,7 +39,7 @@ let FreeFont: [FreeFontModel] = [
         author: "Astro-2539",
         categories: ["pixel", "monospace"],
         languages: ["zh-Hant"],
-        names: ["Z Labs Bitmap 12px", "Z Labs Bitmap 12px", "Z Labs Bitmap 12px", "Z Labs Bitmap 12px"],
+        names: ["Z Labs Bitmap 12px HC"],
         descriptions: [
           "「Z Labs Bitmap 12px」是一款规格为 12px 的像素字体，具有中国大陆、中国香港、日本三种变体字形，西文字体按等宽规格设计。",
           "「Z Labs Bitmap 12px」は、12pxのピクセルフォントで、中国本土、中国香港、日本のバリアントグリフを備え、ラテン文字は等幅デザインとなっています。",
@@ -45,9 +49,13 @@ let FreeFont: [FreeFontModel] = [
         license: "SIL Open Font License 1.1",
         licenseUrl: "https://github.com/Astro-2539/ZLabs-Bitmap/blob/main/LICENSE-OFL",
         website: "https://github.com/Astro-2539/ZLabs-Bitmap",
-        copyright: "Copyright (c) 2023-2025, Astro_2539",
+        copyright: "Copyright (c) 2023-2025, Astro_2539 (https://github.com/Astro-2539).",
           version: "Version 1.0_HC",
-        licenseTag: "ZLabsBitmap_12px_OFL.txt",
+        licenseFile: .init(
+          tag: "ZLabsBitmap_12px_LICENSE",
+          name: "ZLabsBitmap_12px_LICENSE",
+          ext: "txt",
+        ),
         preview: .init(
             name: "ZLabsBitmap_12px_HC_preview_tc",
             ext: "svg"
@@ -66,7 +74,7 @@ let FreeFont: [FreeFontModel] = [
         author: "Astro-2539",
         categories: ["pixel", "monospace"],
         languages: ["ja"],
-        names: ["Z Labs Bitmap 12px", "Z Labs Bitmap 12px", "Z Labs Bitmap 12px", "Z Labs Bitmap 12px"],
+        names: ["Z Labs Bitmap 12px JP"],
         descriptions: [
           "「Z Labs Bitmap 12px」是一款规格为 12px 的像素字体，具有中国大陆、中国香港、日本三种变体字形，西文字体按等宽规格设计。",
           "「Z Labs Bitmap 12px」は、12pxのピクセルフォントで、中国本土、中国香港、日本のバリアントグリフを備え、ラテン文字は等幅デザインとなっています。",
@@ -76,9 +84,13 @@ let FreeFont: [FreeFontModel] = [
         license: "SIL Open Font License 1.1",
         licenseUrl: "https://github.com/Astro-2539/ZLabs-Bitmap/blob/main/LICENSE-OFL",
         website: "https://github.com/Astro-2539/ZLabs-Bitmap",
-        copyright: "Copyright (c) 2023-2025, Astro_2539",
+        copyright: "Copyright (c) 2023-2025, Astro_2539 (https://github.com/Astro-2539).",
         version: "Version 1.01_JP",
-        licenseTag: "ZLabsBitmap_12px_OFL.txt",
+        licenseFile: .init(
+          tag: "ZLabsBitmap_12px_LICENSE",
+          name: "ZLabsBitmap_12px_LICENSE",
+          ext: "txt",
+        ),
         preview: .init(
             name: "ZLabsBitmap_12px_JP_preview_jp",
             ext: "svg"
@@ -109,7 +121,7 @@ let FreeFont: [FreeFontModel] = [
 //         licenseUrl: "https://github.com/Astro-2539/ZLabs-Bitmap/blob/main/LICENSE-OFL",
 //         website: "https://github.com/Astro-2539/ZLabs-Bitmap",
 //         copyright: "Copyright (c) 2023-2025, Astro_2539",
-//         licenseTag: "ZLabsBitmap_12px_OFL.txt",
+//         licenseTag: "ZLabsBitmap_12px_LICENSE",
 //         postscriptNames: [
 //             .init(
 //               language: "zh-Hans",

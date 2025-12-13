@@ -35,26 +35,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		C84B0EAB2EDC8F1C00896149 /* Exceptions for "FreeFontPro" folder in "FreeFontPro" target */ = {
+		C8E5060A2EED959F00F7BCE9 /* Exceptions for "FreeFontPro" folder in "FreeFontPro" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			assetTagsByRelativePath = {
-				"Resources/FreeFont/42dotsans/42dotSans[wght].ttf" = ("42dotSans[wght].ttf", );
-				"Resources/FreeFont/42dotsans/42dotSans[wght]_preview_en.svg" = ("42dotSans[wght]_preview_en", );
-				"Resources/FreeFont/42dotsans/42dotSans[wght]_preview_num.svg" = ("42dotSans[wght]_preview_num", );
-				Resources/FreeFont/42dotsans/OFL.txt = (42dotsans_OFL.txt, );
-				Resources/FreeFont/ZLabsBitmap_12px/OFL.txt = (ZLabsBitmap_12px_OFL.txt, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_CN.ttf = (ZLabsBitmap_12px_CN.ttf, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_CN_preview_cn.svg = (ZLabsBitmap_12px_CN_preview_cn, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_CN_preview_en.svg = (ZLabsBitmap_12px_CN_preview_en, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_CN_preview_num.svg = (ZLabsBitmap_12px_CN_preview_num, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_HC.ttf = (ZLabsBitmap_12px_HC.ttf, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_HC_preview_en.svg = (ZLabsBitmap_12px_HC_preview_en, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_HC_preview_num.svg = (ZLabsBitmap_12px_HC_preview_num, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_HC_preview_tc.svg = (ZLabsBitmap_12px_HC_preview_tc, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_JP.ttf = (ZLabsBitmap_12px_JP.ttf, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_JP_preview_en.svg = (ZLabsBitmap_12px_JP_preview_en, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_JP_preview_jp.svg = (ZLabsBitmap_12px_JP_preview_jp, );
-				Resources/FreeFont/ZLabsBitmap_12px/ZLabsBitmap_12px_JP_preview_num.svg = (ZLabsBitmap_12px_JP_preview_num, );
+				Resources/FreeFont/FontFile/ZLabsBitmap_12px_CN/ZLabsBitmap_12px_CN.ttf = (ZLabsBitmap_12px_CN, );
+				Resources/FreeFont/FontFile/ZLabsBitmap_12px_HC/ZLabsBitmap_12px_HC.ttf = (ZLabsBitmap_12px_HC, );
+				Resources/FreeFont/FontFile/ZLabsBitmap_12px_JP/ZLabsBitmap_12px_JP.ttf = (ZLabsBitmap_12px_JP, );
+				Resources/FreeFont/License/ZLabsBitmap_12px/ZLabsBitmap_12px_LICENSE.txt = (ZLabsBitmap_12px_LICENSE, );
 			};
 			target = C81578B72ED9142200A3C815 /* FreeFontPro */;
 		};
@@ -64,7 +51,7 @@
 		C81578BA2ED9142200A3C815 /* FreeFontPro */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				C84B0EAB2EDC8F1C00896149 /* Exceptions for "FreeFontPro" folder in "FreeFontPro" target */,
+				C8E5060A2EED959F00F7BCE9 /* Exceptions for "FreeFontPro" folder in "FreeFontPro" target */,
 			);
 			path = FreeFontPro;
 			sourceTree = "<group>";
@@ -213,18 +200,22 @@
 					"42dotSans[wght]_preview_en",
 					"42dotSans[wght]_preview_num",
 					42dotsans_OFL.txt,
+					ZLabsBitmap_12px_CN,
 					ZLabsBitmap_12px_CN.ttf,
 					ZLabsBitmap_12px_CN_preview_cn,
 					ZLabsBitmap_12px_CN_preview_en,
 					ZLabsBitmap_12px_CN_preview_num,
+					ZLabsBitmap_12px_HC,
 					ZLabsBitmap_12px_HC.ttf,
 					ZLabsBitmap_12px_HC_preview_en,
 					ZLabsBitmap_12px_HC_preview_num,
 					ZLabsBitmap_12px_HC_preview_tc,
+					ZLabsBitmap_12px_JP,
 					ZLabsBitmap_12px_JP.ttf,
 					ZLabsBitmap_12px_JP_preview_en,
 					ZLabsBitmap_12px_JP_preview_jp,
 					ZLabsBitmap_12px_JP_preview_num,
+					ZLabsBitmap_12px_LICENSE,
 					ZLabsBitmap_12px_OFL.txt,
 				);
 				LastSwiftUpdateCheck = 2600;
@@ -468,8 +459,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -505,8 +496,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

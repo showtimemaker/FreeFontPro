@@ -4,6 +4,8 @@ import SDWebImageSwiftUI
 
 struct FontDetailView: View {
     let font: FreeFontModel
+    @State private var showLicenseView = false
+    @State private var selectedPostscript: FreeFontModel.PostscriptName? = nil
     
     var body: some View {
         Form {
@@ -30,8 +32,14 @@ struct FontDetailView: View {
                     Text("许可协议")
                         .font(.system(size: 12))
                         .bold()
-                    Text(font.license)
-                        .font(.system(size: 14))
+                    Button(action: { showLicenseView = true }) {
+                        Text(font.license)
+                            .font(.system(size: 14))
+                            .foregroundColor(.blue)
+                    }
+                }
+                .navigationDestination(isPresented: $showLicenseView) {
+                    LicenseView(odrTag: font.licenseFile)
                 }
             }
             Section ("\(font.postscriptNames.count)种样式"){
